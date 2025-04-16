@@ -90,20 +90,20 @@ export default function OmOss({ aboutPage }) {
               {/* Team Member 1 */}
               <div className="text-center">
                 <div className="w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full bg-gray-200"></div>
-                <h3 className="text-xl font-bold text-gray-900">Anna Hansen</h3>
+                <h3 className="text-xl font-bold text-gray-900">Håvard Røste</h3>
                 <p className="text-gray-600 mb-2">Daglig leder</p>
                 <p className="text-gray-600 max-w-xs mx-auto">
-                  Med over 15 års erfaring fra teknologibransjen leder Anna teamet med fokus på strategi og kundesamarbeid.
+                  Med over 25 års erfaring fra teknologibransjen leder Håvard teamet med fokus på strategi og kundesamarbeid.
                 </p>
               </div>
 
               {/* Team Member 2 */}
               <div className="text-center">
                 <div className="w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full bg-gray-200"></div>
-                <h3 className="text-xl font-bold text-gray-900">Erik Johansen</h3>
-                <p className="text-gray-600 mb-2">Teknologirådgiver</p>
+                <h3 className="text-xl font-bold text-gray-900">Roy Both</h3>
+                <p className="text-gray-600 mb-2">AI-assistent</p>
                 <p className="text-gray-600 max-w-xs mx-auto">
-                  Erik har bakgrunn fra ledende teknologiselskaper og spesialiserer seg på digitale transformasjonsprosjekter.
+                  Roy har bakgrunn fra ledende teknologiselskaper og spesialiserer seg på digitale transformasjonsprosjekter.
                 </p>
               </div>
 
