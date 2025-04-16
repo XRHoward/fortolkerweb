@@ -72,7 +72,7 @@ export default function Footer() {
               Storgata 1<br />
               0000 Oslo<br /><br />
               Telefon: +47 123 45 678<br />
-              E-post: kontakt@fortolker.no
+              E-post: heiaheia@fortolker.no
             </address>
           </div>
         </div>
