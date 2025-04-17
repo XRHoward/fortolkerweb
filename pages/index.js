@@ -1,97 +1,44 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { client } from '../lib/sanity';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import { client } from '../../lib/sanity';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
-export default function Home({ globalSettings, homePage }) {
+export default function Tjenester({ services }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>{globalSettings?.siteName || 'Fortolker AS'} - Rådgivning innen teknologi, innovasjon og bærekraft</title>
-        <meta name="description" content="Fortolker AS tilbyr spesialisert rådgivning innen teknologi, innovasjon og bærekraft for å hjelpe din bedrift med å møte fremtidens utfordringer." />
+        <title>Tjenester - Fortolker AS</title>
+        <meta name="description" content="Se alle tjenestene Fortolker AS tilbyr innen teknologi, innovasjon og bærekraft." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Header />
 
       <main className="flex-grow">
-        {/* Hero Section */}
         <section className="bg-gray-50 py-16 md:py-24">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  {homePage?.heroHeading || 'Rådgivning for fremtidens utfordringer'}
-                </h1>
-                <p className="text-xl text-gray-600 mb-8">
-                  {homePage?.heroSubheading || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.'}
-                </p>
-                <Link href="/kontakt" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition duration-300">
-                  Kontakt oss
-                </Link>
-              </div>
-              <div className="order-first md:order-last">
-                <div className="bg-gray-200 h-64 md:h-80 rounded-lg"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Introduction Section */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                {homePage?.introHeading}
-              </h2>
-              <p className="text-lg text-gray-600">
-                {homePage?.introText}
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Våre tjenester</h1>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og bærekraft – tilpasset din virksomhets behov.
               </p>
             </div>
-          </div>
-        </section>
 
-        {/* Services Section */}
-        {homePage?.featuredServices?.length > 0 && (
-          <section className="bg-gray-50 py-16">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Våre tjenester</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {homePage.featuredServices.map((service) => (
-                  <div key={service.slug.current} className="bg-white p-8 rounded-lg shadow-md">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                      <span className="text-blue-600 text-2xl">{/* evt. ikon her */}</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4">
-                      {service.shortDescription}
-                    </p>
-                    <Link href={`/tjenester/${service.slug.current}`} className="text-blue-600 hover:text-blue-800 font-medium">
-                      Les mer →
-                    </Link>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {services.map((service) => (
+                <div key={service.slug.current} className="bg-white p-8 rounded-lg shadow-md">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                    {/* Her kan du sette inn ikon eller bilde */}
+                    <span className="text-blue-600 text-2xl">{/* {service.icon} */}</span>
                   </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Call to Action */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="bg-blue-600 rounded-lg p-8 md:p-12 text-center">
-              <h2 className="text-3xl font-bold text-white mb-4">
-                {homePage?.ctaHeading}
-              </h2>
-              <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-                {homePage?.ctaText}
-              </p>
-              <Link href="/kontakt" className="inline-block bg-white text-blue-600 hover:bg-blue-50 font-medium py-3 px-6 rounded-md transition duration-300">
-                {homePage?.ctaButtonText || 'Kontakt oss'}
-              </Link>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
+                  <p className="text-gray-600 mb-4">{service.shortDescription}</p>
+                  <Link href={`/tjenester/${service.slug.current}`} className="text-blue-600 hover:text-blue-800 font-medium">
+                    Les mer →
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -104,42 +51,26 @@ export default function Home({ globalSettings, homePage }) {
 
 export async function getStaticProps() {
   try {
-    const globalSettingsQuery = `*[_type == "globalSettings"][0]`;
-
-    const homePageQuery = `*[_type == "homePage"][0]{
+    const servicesQuery = `*[_type == "service"] | order(title asc){
       title,
-      heroHeading,
-      heroSubheading,
-      heroImage,
-      introHeading,
-      introText,
-      featuredServices[]->{
-        title,
-        slug,
-        icon,
-        shortDescription
-      },
-      ctaHeading,
-      ctaText,
-      ctaButtonText
+      slug,
+      icon,
+      shortDescription
     }`;
 
-    const globalSettings = await client.fetch(globalSettingsQuery);
-    const homePage = await client.fetch(homePageQuery);
+    const services = await client.fetch(servicesQuery);
 
     return {
       props: {
-        globalSettings,
-        homePage,
+        services,
       },
       revalidate: 60,
     };
   } catch (error) {
-    console.error('Feil ved henting av innhold fra Sanity:', error);
+    console.error('Feil ved henting av tjenester fra Sanity:', error);
     return {
       props: {
-        globalSettings: {},
-        homePage: {},
+        services: [],
       },
     };
   }
