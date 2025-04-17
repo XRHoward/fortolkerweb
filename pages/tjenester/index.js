@@ -30,103 +30,33 @@ export default function Tjenester({ services }) {
           </div>
         </section>
 
-        {/* Services List */}
+        {/* Dynamisk liste over tjenester */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            {/* Service 1 */}
-            <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Teknologirådgivning</h2>
-                <p className="text-lg text-gray-600 mb-6">
-                  Vi hjelper bedrifter med å velge og implementere teknologiske løsninger som gir konkurransefortrinn og effektiviserer drift. Vår ekspertise spenner fra skyløsninger og dataanalyse til kunstig intelligens og automatisering.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Teknologistrategi og veikart</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Digital transformasjon</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Systemvalg og implementering</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-gray-200 h-64 rounded-lg"></div>
-            </div>
-
-            {/* Service 2 */}
-            <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div className="order-last md:order-first">
+            {services.map((service, index) => (
+              <div
+                key={service.slug.current}
+                className={`mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
+              >
+                <div className={index % 2 === 1 ? 'order-last md:order-first' : ''}>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6">{service.title}</h2>
+                  <p className="text-lg text-gray-600 mb-6">{service.shortDescription}</p>
+                  {service.features?.length > 0 && (
+                    <ul className="space-y-3">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
                 <div className="bg-gray-200 h-64 rounded-lg"></div>
               </div>
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Innovasjonsrådgivning</h2>
-                <p className="text-lg text-gray-600 mb-6">
-                  Vi bistår med å utvikle og implementere innovasjonsstrategier som skaper nye muligheter og forretningsmodeller. Vi hjelper deg med å identifisere, utvikle og implementere innovative løsninger som skaper verdi.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Innovasjonsstrategi</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Forretningsmodellutvikling</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Innovasjonsworkshops og prosesser</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Service 3 */}
-            <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Bærekraftsrådgivning</h2>
-                <p className="text-lg text-gray-600 mb-6">
-                  Vi hjelper bedrifter med å integrere bærekraft i forretningsstrategien og utvikle løsninger som er gode for både planeten og bunnlinjen. Vår tilnærming kombinerer miljømessige, sosiale og økonomiske perspektiver.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Bærekraftsstrategi</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>ESG-rapportering og -måling</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Sirkulære forretningsmodeller</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-gray-200 h-64 rounded-lg"></div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -155,17 +85,24 @@ export default function Tjenester({ services }) {
 
 export async function getStaticProps() {
   try {
-    // This would normally fetch data from Sanity
-    const services = [];
+    const servicesQuery = `*[_type == "service"] | order(title asc){
+      title,
+      slug,
+      icon,
+      shortDescription,
+      features
+    }`;
+
+    const services = await client.fetch(servicesQuery);
 
     return {
       props: {
         services,
       },
-      revalidate: 60, // Revalidate every 60 seconds
+      revalidate: 60,
     };
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Feil ved henting av tjenester fra Sanity:', error);
     return {
       props: {
         services: [],
