@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function Home({ globalSettings, homePage }) {
+console.log("Hero image:", homePage?.heroImage);  
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
