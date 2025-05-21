@@ -115,23 +115,28 @@ export async function getStaticProps() {
   try {
     const globalSettingsQuery = `*[_type == "globalSettings"][0]`;
 
-    const homePageQuery = `*[_type == "homePage"][0]{
-      title,
-      heroHeading,
-      heroSubheading,
-      heroImage,
-      introHeading,
-      introText,
-      featuredServices[]->{
-        title,
-        slug,
-        icon,
-        shortDescription
-      },
-      ctaHeading,
-      ctaText,
-      ctaButtonText
-    }`;
+const homePageQuery = `*[_type == "homePage"][0]{
+  title,
+  heroHeading,
+  heroSubheading,
+  heroImage {
+    asset->{
+      _id,
+      url
+    }
+  },
+  introHeading,
+  introText,
+  featuredServices[]->{
+    title,
+    slug,
+    icon,
+    shortDescription
+  },
+  ctaHeading,
+  ctaText,
+  ctaButtonText
+}`;
 
     const globalSettings = await client.fetch(globalSettingsQuery);
     const homePage = await client.fetch(homePageQuery);
