@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { client } from '../lib/sanity';
+import { client, urlFor } from '../lib/sanity';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
