@@ -18,6 +18,7 @@ export default function Home({ globalSettings, homePage }) {
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="bg-gray-50 py-16 md:py-24">
+          console.log("HeroImage:", homePage.heroImage);
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
