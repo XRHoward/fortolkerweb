@@ -19,13 +19,13 @@ export default function Home({ globalSettings, homePage }) {
         {/* Hero Section */}
         <section className="bg-gray-50 py-16 md:py-24">
           
-          {homePage?.heroImage && (
+        {homePage?.heroImage && (
   <img
     src={urlFor(homePage.heroImage).width(800).url()}
     alt={homePage.heroHeading || 'Illustrasjonsbilde'}
     className="w-full h-64 md:h-80 object-cover rounded-lg"
   />
-)
+)}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
