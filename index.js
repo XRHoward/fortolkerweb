@@ -162,6 +162,7 @@ export async function getStaticProps() {
     };
   } catch (error) {
     console.error('Feil ved henting av innhold fra Sanity:', error);
+    console.error("💥 Caught Sanity error:", error.message);
     return {
       props: {
         globalSettings: {},
