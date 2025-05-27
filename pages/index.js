@@ -1,11 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { client, urlFor } from '../lib/sanity';
+import { client } from '../lib/sanity';
+import { urlFor } from '../lib/sanity'; // valgfritt, hvis du vil bruke det senere
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function Home({ globalSettings, homePage }) {
-console.log("Hero image:", homePage?.heroImage);  
+  console.log("Hero image:", homePage?.heroImage);  
+
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
@@ -18,34 +20,34 @@ console.log("Hero image:", homePage?.heroImage);
 
       <main className="flex-grow">
         {/* Hero Section */}
-  <section className="bg-gray-50 py-16 md:py-24">
-  <div className="container mx-auto px-4">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      <div>
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          {homePage?.heroHeading || 'Rådgivning for fremtidens utfordringer'}
-        </h1>
-        <p className="text-xl text-gray-600 mb-8">
-          {homePage?.heroSubheading || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.'}
-        </p>
-        <Link href="/kontakt" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition duration-300">
-          Kontakt oss
-        </Link>
-      </div>
-      <div className="order-first md:order-last">
-        {homePage?.heroImage ? (
-          <img
-            src={urlFor(homePage.heroImage).width(800).url()}
-            alt={homePage.heroHeading || 'Illustrasjonsbilde'}
-            className="w-full h-64 md:h-80 object-cover rounded-lg"
-          />
-        ) : (
-          <div className="bg-gray-200 h-64 md:h-80 rounded-lg"></div>
-        )}
-      </div>
-    </div>
-  </div>
-</section>
+        <section className="bg-gray-50 py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                  {homePage?.heroHeading || 'Rådgivning for fremtidens utfordringer'}
+                </h1>
+                <p className="text-xl text-gray-600 mb-8">
+                  {homePage?.heroSubheading || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.'}
+                </p>
+                <Link href="/kontakt" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition duration-300">
+                  Kontakt oss
+                </Link>
+              </div>
+              <div className="order-first md:order-last">
+                {homePage?.heroImage?.asset?.url ? (
+                  <img
+                    src={homePage.heroImage.asset.url}
+                    alt={homePage.heroHeading || 'Illustrasjonsbilde'}
+                    className="w-full h-64 md:h-80 object-cover rounded-lg"
+                  />
+                ) : (
+                  <div className="bg-gray-200 h-64 md:h-80 rounded-lg"></div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Introduction Section */}
         <section className="py-16">
@@ -68,9 +70,19 @@ console.log("Hero image:", homePage?.heroImage);
               <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Våre tjenester</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {homePage.featuredServices.map((service) => (
-                  <div key={service.slug.current} className="bg-white p-8 rounded-lg shadow-md">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                      <span className="text-blue-600 text-2xl">{/* evt. ikon her */}</span>
+                  <div key={service.slug.current} className="bg-white p-8 rounded-lg shadow-md text-center">
+                    <div className="w-20 h-20 mx-auto mb-6">
+                      {service.image?.asset?.url ? (
+                        <img
+                          src={service.image.asset.url}
+                          alt={service.title}
+                          className="w-full h-full object-contain rounded"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
+                          Ingen bilde
+                        </div>
+                      )}
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-3">
                       {service.title}
@@ -115,28 +127,33 @@ export async function getStaticProps() {
   try {
     const globalSettingsQuery = `*[_type == "globalSettings"][0]`;
 
-const homePageQuery = `*[_type == "homePage"][0]{
-  title,
-  heroHeading,
-  heroSubheading,
-  heroImage {
-    asset->{
-      _id,
-      url
-    }
-  },
-  introHeading,
-  introText,
-  featuredServices[]->{
-    title,
-    slug,
-    icon,
-    shortDescription
-  },
-  ctaHeading,
-  ctaText,
-  ctaButtonText
-}`;
+    const homePageQuery = `*[_type == "homePage"][0]{
+      title,
+      heroHeading,
+      heroSubheading,
+      heroImage {
+        asset->{
+          _id,
+          url
+        }
+      },
+      introHeading,
+      introText,
+      featuredServices[]->{
+        title,
+        slug,
+        shortDescription,
+        image {
+          asset->{
+            _id,
+            url
+          }
+        }
+      },
+      ctaHeading,
+      ctaText,
+      ctaButtonText
+    }`;
 
     const globalSettings = await client.fetch(globalSettingsQuery);
     const homePage = await client.fetch(homePageQuery);
