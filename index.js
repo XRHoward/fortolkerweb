@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { client, urlFor } from '../lib/sanity';
+import { client } from '../lib/sanity';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function Home({ globalSettings, homePage }) {
-  console.log("✅ globalSettings:", globalSettings);
-  console.log("✅ homePage:", homePage);
+  console.log("✅ RENDERED globalSettings:", globalSettings);
+  console.log("✅ RENDERED homePage:", homePage);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -22,7 +22,6 @@ export default function Home({ globalSettings, homePage }) {
       <Header globalSettings={globalSettings} />
 
       <main className="flex-grow">
-        {/* Hero Section */}
         <section className="bg-gray-50 py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -56,7 +55,6 @@ export default function Home({ globalSettings, homePage }) {
           </div>
         </section>
 
-        {/* Introduction Section */}
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
@@ -66,7 +64,6 @@ export default function Home({ globalSettings, homePage }) {
           </div>
         </section>
 
-        {/* Services Section */}
         {homePage?.featuredServices?.length > 0 && (
           <section className="bg-gray-50 py-16">
             <div className="container mx-auto px-4">
@@ -75,7 +72,7 @@ export default function Home({ globalSettings, homePage }) {
                 {homePage.featuredServices.map((service) => (
                   <div key={service.slug.current} className="bg-white p-8 rounded-lg shadow-md">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                      <span className="text-blue-600 text-2xl">{/* evt. ikon her */}</span>
+                      <span className="text-blue-600 text-2xl">{/* evt. ikon */}</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
                     <p className="text-gray-600 mb-4">{service.shortDescription}</p>
@@ -92,7 +89,6 @@ export default function Home({ globalSettings, homePage }) {
           </section>
         )}
 
-        {/* Call to Action */}
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="bg-blue-600 rounded-lg p-8 md:p-12 text-center">
@@ -151,6 +147,9 @@ export async function getStaticProps() {
 
     const globalSettings = await client.fetch(globalSettingsQuery);
     const homePage = await client.fetch(homePageQuery);
+
+    console.log("✅ FETCHED globalSettings:", globalSettings);
+    console.log("✅ FETCHED homePage:", homePage);
 
     return {
       props: {
