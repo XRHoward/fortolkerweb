@@ -69,7 +69,7 @@ export default function Home({ globalSettings, homePage }) {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {homePage.featuredServices.map((service) => (
                   <Link href={`/tjenester/${service.slug.current}`} key={service.slug.current} passHref>
-                    <a className="block bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 h-full min-h-[420px]">
+                    <a className="block bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 h-full min-h-[380px]">
                       <div className="flex flex-col h-full items-center text-center">
                         <div className="w-20 h-20 mb-6">
                           {service.image?.asset?.url ? (
