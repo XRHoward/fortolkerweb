@@ -19,7 +19,6 @@ export default function Home({ globalSettings, homePage }) {
       <Header globalSettings={globalSettings} />
 
       <main className="flex-grow">
-        {/* Hero Section */}
         <section className="bg-gray-50 py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -53,8 +52,7 @@ export default function Home({ globalSettings, homePage }) {
           </div>
         </section>
 
-        {/* Intro, Services, CTA... (kan være uendret) */}
-        {/* ... */}
+        {/* Resten av sidens innhold */}
       </main>
 
       <Footer />
@@ -64,7 +62,7 @@ export default function Home({ globalSettings, homePage }) {
 
 export async function getStaticProps() {
   try {
-    const globalSettingsQuery = `*[_type == "globalSettings"][0]{
+    const globalSettingsQuery = `*[_id == "globalSettings"][0]{
       siteName,
       logo {
         asset->{
