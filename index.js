@@ -5,6 +5,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function Home({ globalSettings, homePage }) {
+  console.log("✅ globalSettings:", globalSettings);
+  console.log("✅ homePage:", homePage);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
@@ -39,9 +42,9 @@ export default function Home({ globalSettings, homePage }) {
                 </Link>
               </div>
               <div className="order-first md:order-last">
-                {homePage?.heroImage?.asset ? (
+                {homePage?.heroImage?.asset?.url ? (
                   <img
-                    src={urlFor(homePage.heroImage).width(800).url()}
+                    src={homePage.heroImage.asset.url}
                     alt={homePage.heroHeading || 'Illustrasjonsbilde'}
                     className="w-full h-64 md:h-80 object-cover rounded-lg"
                   />
@@ -109,4 +112,60 @@ export default function Home({ globalSettings, homePage }) {
       <Footer />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  try {
+    const globalSettingsQuery = `*[_id == "globalSettings"][0]{
+      siteName,
+      logo {
+        asset->{
+          _id,
+          url
+        }
+      }
+    }`;
+
+    const homePageQuery = `*[_type == "homePage"][0]{
+      title,
+      heroHeading,
+      heroSubheading,
+      heroImage {
+        asset->{
+          _id,
+          url
+        }
+      },
+      introHeading,
+      introText,
+      featuredServices[]->{
+        title,
+        slug,
+        icon,
+        shortDescription
+      },
+      ctaHeading,
+      ctaText,
+      ctaButtonText
+    }`;
+
+    const globalSettings = await client.fetch(globalSettingsQuery);
+    const homePage = await client.fetch(homePageQuery);
+
+    return {
+      props: {
+        globalSettings,
+        homePage,
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error('💥 Feil ved henting av innhold fra Sanity:', error.message);
+    return {
+      props: {
+        globalSettings: {},
+        homePage: {},
+      },
+    };
+  }
 }
