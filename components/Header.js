@@ -4,7 +4,7 @@ import { urlFor } from '../lib/sanity';
 
 export default function Header({ globalSettings }) {
   // Debug: viser i konsoll om logo er definert
-  console.log("GlobalSettings.logo:", globalSettings?.logo);
+  console.log("globalSettings full:", globalSettings)
 
   // Bygg bilde-URL dersom asset finnes
   const logoUrl = globalSettings?.logo?.asset
