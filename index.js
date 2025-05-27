@@ -150,6 +150,8 @@ export async function getStaticProps() {
     const homePage = await client.fetch(homePageQuery);
 
     console.log("✅ globalSettings:", globalSettings);
+    console.log("✅ globalSettings-resultat:", globalSettings);
+    console.log("✅ homePage-resultat:", homePage);
 
     return {
       props: {
