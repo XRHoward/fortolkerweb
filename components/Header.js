@@ -3,10 +3,12 @@ import Image from 'next/image';
 import { urlFor } from '../lib/sanity';
 
 export default function Header({ globalSettings }) {
+  // Debug: Vis logo-data i loggen
   console.log("GlobalSettings.logo:", globalSettings?.logo);
 
+  // Bygg bildeadresse hvis asset finnes
   const logoUrl = globalSettings?.logo?.asset
-    ? urlFor(globalSettings.logo).width(120).url()
+    ? urlFor(globalSettings.logo).width(200).url()
     : null;
 
   return (
@@ -14,7 +16,7 @@ export default function Header({ globalSettings }) {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center">
-            {logoUrl && (
+            {logoUrl ? (
               <Image
                 src={logoUrl}
                 alt="Fortolker logo"
@@ -22,6 +24,8 @@ export default function Header({ globalSettings }) {
                 height={60}
                 priority
               />
+            ) : (
+              <span className="text-xl font-bold text-gray-800">Fortolker</span>
             )}
           </Link>
           <nav className="hidden md:flex space-x-8">
@@ -31,9 +35,11 @@ export default function Header({ globalSettings }) {
             <Link href="/kontakt" className="text-gray-600 hover:text-blue-600">Kontakt</Link>
           </nav>
           <div className="md:hidden">
-            <button className="text-gray-600">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            <button className="text-gray-600" aria-label="Åpne meny">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
