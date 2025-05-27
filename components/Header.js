@@ -1,24 +1,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { urlFor } from '../lib/sanity';
 
-export default function Header({ globalSettings }) {
-  console.log("LOGO fra globalSettings:", globalSettings?.logo);
-
+export default function Header() {
   return (
     <header className="bg-white shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center">
-            {globalSettings?.logo?.asset && (
-              <Image
-                src={urlFor(globalSettings.logo).width(120).url()}
-                alt="Fortolker logo"
-                width={120}
-                height={60}
-                priority
-              />
-            )}
+            <Image
+              src="https://cdn.sanity.io/images/7izj8dsr/production/6403968b9ca8e6a2843933f03d863bd41f9cedb3-750x417.png"
+              alt="Fortolker logo"
+              width={120}
+              height={60}
+              priority
+            />
           </Link>
           <nav className="hidden md:flex space-x-8">
             <Link href="/" className="text-gray-600 hover:text-blue-600">Hjem</Link>
