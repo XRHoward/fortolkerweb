@@ -104,7 +104,7 @@ export default function Home({ globalSettings, homePage }) {
 
 export async function getStaticProps() {
   try {
-    const globalSettingsQuery = `*[_type == "globalSettings"][0]{
+  const globalSettingsQuery = `*[_type == "globalSettings"][0]{
   siteName,
   logo {
     asset->{
