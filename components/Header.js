@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 export default function Header({ globalSettings }) {
   const logoUrl = globalSettings?.logo?.asset?.url;
+  console.log("🧠 LOGO URL I HEADER:", logoUrl);
 
   return (
     <header className="bg-white shadow-sm">
