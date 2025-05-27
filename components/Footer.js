@@ -59,7 +59,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/tjenester" className="text-gray-400 hover:text-white">
-                  Bærekraftsrådgivning
+                  Innleid ledelse
                 </Link>
               </li>
             </ul>
@@ -69,11 +69,11 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Kontakt</h3>
             <address className="text-gray-400 not-italic">
-              Storgata 1<br />
-              0000 Oslo<br /><br />
-              Telefon: +47 123 45 678<br />
-              E-post: heiaheia@fortolker.no
-            </address>
+              Hakabekkvegen 63 1<br />
+              2315 Hamar<br /><br />
+              Telefon: +47 99 60 36 11 <br />
+              E-post: hei@fortolker.no
+              </address>
           </div>
         </div>
 
