@@ -52,7 +52,7 @@ export default function Home({ globalSettings, homePage }) {
           </div>
         </section>
 
-        {/* Resten av sidens innhold */}
+        {/* Her kan resten av siden ligge (intro, tjenester, CTA osv.) */}
       </main>
 
       <Footer />
@@ -62,7 +62,9 @@ export default function Home({ globalSettings, homePage }) {
 
 export async function getStaticProps() {
   try {
-    const globalSettingsQuery = `*[_id == "globalSettings"][0]{
+    console.log("🔍 START fetches");
+
+    const globalSettingsQuery = `*[_type == "globalSettings"][0]{
       siteName,
       logo {
         asset->{
