@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { urlFor } from '../lib/sanity';
 
 export default function Header({ globalSettings }) {
-  // Debug: Vis logo-data i loggen
+  // Debug: viser i konsoll om logo er definert
   console.log("GlobalSettings.logo:", globalSettings?.logo);
 
-  // Bygg bildeadresse hvis asset finnes
+  // Bygg bilde-URL dersom asset finnes
   const logoUrl = globalSettings?.logo?.asset
     ? urlFor(globalSettings.logo).width(200).url()
     : null;
