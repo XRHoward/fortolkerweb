@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { client } from '../../lib/sanity';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import { PortableText } from '@portabletext/react';
 
 export default function Tjenester({ services }) {
   return (
@@ -23,110 +24,105 @@ export default function Tjenester({ services }) {
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                 Våre tjenester
               </h1>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-600 mb-8">
                 Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og bærekraft for å hjelpe din bedrift med å møte fremtidens utfordringer.
               </p>
+              {/* Internmeny */}
+              <nav className="flex flex-wrap justify-center gap-4 mt-6">
+                {services.map((service) => (
+                  <Link key={service.slug.current} href={`#${service.slug.current}`} className="text-blue-600 hover:underline">
+                    {service.title}
+                  </Link>
+                ))}
+              </nav>
             </div>
           </div>
         </section>
 
-        {/* Services List */}
+        {/* Dynamisk liste over tjenester */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            {/* Service 1 */}
-            <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Teknologirådgivning</h2>
-                <p className="text-lg text-gray-600 mb-6">
-                  Vi hjelper bedrifter med å velge og implementere teknologiske løsninger som gir konkurransefortrinn og effektiviserer drift. Vår ekspertise spenner fra skyløsninger og dataanalyse til kunstig intelligens og automatisering.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Teknologistrategi og veikart</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Digital transformasjon</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Systemvalg og implementering</span>
-                  </li>
-                </ul>
+            {services.map((service, index) => (
+              <div
+                id={service.slug.current}
+                key={service.slug.current}
+                className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center scroll-mt-24"
+              >
+                {index % 2 === 1 ? (
+                  <>
+                    <div className="order-last md:order-first">
+                      {service.image?.asset?.url ? (
+                        <img
+                          src={service.image.asset.url}
+                          alt={service.title}
+                          className="w-full h-64 object-contain rounded-lg"
+                        />
+                      ) : (
+                        <div className="bg-gray-200 h-64 rounded-lg" />
+                      )}
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-bold text-gray-900 mb-6">{service.title}</h2>
+                      {service.fullDescription ? (
+                        <div className="text-lg text-gray-600 mb-6 prose max-w-none">
+                          <PortableText value={service.fullDescription} />
+                        </div>
+                      ) : (
+                        <p className="text-lg text-gray-600 mb-6">{service.shortDescription}</p>
+                      )}
+                      {service.features?.length > 0 && (
+                        <ul className="space-y-3">
+                          {service.features.map((feature, i) => (
+                            <li key={i} className="flex items-start">
+                              <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <h2 className="text-3xl font-bold text-gray-900 mb-6">{service.title}</h2>
+                      {service.fullDescription ? (
+                        <div className="text-lg text-gray-600 mb-6 prose max-w-none">
+                          <PortableText value={service.fullDescription} />
+                        </div>
+                      ) : (
+                        <p className="text-lg text-gray-600 mb-6">{service.shortDescription}</p>
+                      )}
+                      {service.features?.length > 0 && (
+                        <ul className="space-y-3">
+                          {service.features.map((feature, i) => (
+                            <li key={i} className="flex items-start">
+                              <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                    <div>
+                      {service.image?.asset?.url ? (
+                        <img
+                          src={service.image.asset.url}
+                          alt={service.title}
+                          className="w-full h-64 object-contain rounded-lg"
+                        />
+                      ) : (
+                        <div className="bg-gray-200 h-64 rounded-lg" />
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
-              <div className="bg-gray-200 h-64 rounded-lg"></div>
-            </div>
-
-            {/* Service 2 */}
-            <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div className="order-last md:order-first">
-                <div className="bg-gray-200 h-64 rounded-lg"></div>
-              </div>
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Innovasjonsrådgivning</h2>
-                <p className="text-lg text-gray-600 mb-6">
-                  Vi bistår med å utvikle og implementere innovasjonsstrategier som skaper nye muligheter og forretningsmodeller. Vi hjelper deg med å identifisere, utvikle og implementere innovative løsninger som skaper verdi.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Innovasjonsstrategi</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Forretningsmodellutvikling</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Innovasjonsworkshops og prosesser</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Service 3 */}
-            <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Bærekraftsrådgivning</h2>
-                <p className="text-lg text-gray-600 mb-6">
-                  Vi hjelper bedrifter med å integrere bærekraft i forretningsstrategien og utvikle løsninger som er gode for både planeten og bunnlinjen. Vår tilnærming kombinerer miljømessige, sosiale og økonomiske perspektiver.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Bærekraftsstrategi</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>ESG-rapportering og -måling</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Sirkulære forretningsmodeller</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-gray-200 h-64 rounded-lg"></div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -155,17 +151,29 @@ export default function Tjenester({ services }) {
 
 export async function getStaticProps() {
   try {
-    // This would normally fetch data from Sanity
-    const services = [];
+    const servicesQuery = `*[_type == "service"] | order(_createdAt asc) {
+      title,
+      slug,
+      shortDescription,
+      fullDescription,
+      features,
+      image {
+        asset->{
+          url
+        }
+      }
+    }`;
+
+    const services = await client.fetch(servicesQuery);
 
     return {
       props: {
         services,
       },
-      revalidate: 60, // Revalidate every 60 seconds
+      revalidate: 60,
     };
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Feil ved henting av tjenester:', error);
     return {
       props: {
         services: [],
