@@ -1,13 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { client } from '../lib/sanity';
-import { urlFor } from '../lib/sanity'; // valgfritt, hvis du vil bruke det senere
+import { urlFor } from '../lib/sanity';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function Home({ globalSettings, homePage }) {
-  console.log("Hero image:", homePage?.heroImage);  
-
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
@@ -70,30 +68,32 @@ export default function Home({ globalSettings, homePage }) {
               <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Våre tjenester</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {homePage.featuredServices.map((service) => (
-                  <div key={service.slug.current} className="bg-white p-8 rounded-lg shadow-md text-center">
-                    <div className="w-20 h-20 mx-auto mb-6">
-                      {service.image?.asset?.url ? (
-                        <img
-                          src={service.image.asset.url}
-                          alt={service.title}
-                          className="w-full h-full object-contain rounded"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
-                          Ingen bilde
-                        </div>
-                      )}
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4">
-                      {service.shortDescription}
-                    </p>
-                    <Link href={`/tjenester/${service.slug.current}`} className="text-blue-600 hover:text-blue-800 font-medium">
-                      Les mer →
-                    </Link>
-                  </div>
+                  <Link href={`/tjenester/${service.slug.current}`} key={service.slug.current} passHref>
+                    <a className="block bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-200">
+                      <div className="w-20 h-20 mx-auto mb-6">
+                        {service.image?.asset?.url ? (
+                          <img
+                            src={service.image.asset.url}
+                            alt={service.title}
+                            className="w-full h-full object-contain rounded"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
+                            Ingen bilde
+                          </div>
+                        )}
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">
+                        {service.title}
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        {service.shortDescription}
+                      </p>
+                      <span className="text-blue-600 hover:text-blue-800 font-medium">
+                        Les mer →
+                      </span>
+                    </a>
+                  </Link>
                 ))}
               </div>
             </div>
