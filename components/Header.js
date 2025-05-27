@@ -1,15 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { urlFor } from '../lib/sanity';
 
 export default function Header({ globalSettings }) {
-  // Debug: viser i konsoll om logo er definert
-  console.log("globalSettings full:", globalSettings)
-
-  // Bygg bilde-URL dersom asset finnes
-  const logoUrl = globalSettings?.logo?.asset
-    ? urlFor(globalSettings.logo).width(200).url()
-    : null;
+  const logoUrl = globalSettings?.logo?.asset?.url;
 
   return (
     <header className="bg-white shadow-sm">
