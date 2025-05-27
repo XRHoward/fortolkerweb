@@ -9,19 +9,16 @@ export default function Header({ globalSettings }) {
     <header className="bg-white shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          <Link href="/" className="flex items-center space-x-2">
-            {globalSettings?.logo?.asset ? (
+          <Link href="/" className="flex items-center">
+            {globalSettings?.logo?.asset && (
               <Image
                 src={urlFor(globalSettings.logo).width(120).url()}
                 alt="Fortolker logo"
-                width={40}
-                height={40}
+                width={120}
+                height={60}
                 priority
               />
-            ) : (
-              <span className="text-xl font-semibold text-gray-500">Fortolker</span>
             )}
-            <span className="text-2xl font-bold text-gray-900">Fortolker AS</span>
           </Link>
           <nav className="hidden md:flex space-x-8">
             <Link href="/" className="text-gray-600 hover:text-blue-600">Hjem</Link>
