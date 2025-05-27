@@ -19,6 +19,7 @@ export default function Home({ globalSettings, homePage }) {
       <Header globalSettings={globalSettings} />
 
       <main className="flex-grow">
+        {/* Hero Section */}
         <section className="bg-gray-50 py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -52,7 +53,7 @@ export default function Home({ globalSettings, homePage }) {
           </div>
         </section>
 
-        {/* Her kan resten av siden ligge (intro, tjenester, CTA osv.) */}
+        {/* Du kan legge inn intro, tjenester, cta osv. under her */}
       </main>
 
       <Footer />
@@ -62,7 +63,7 @@ export default function Home({ globalSettings, homePage }) {
 
 export async function getStaticProps() {
   try {
-    console.log("🔍 START fetches");
+    console.log("🟡 STARTER fetches fra Sanity...");
 
     const globalSettingsQuery = `*[_type == "globalSettings"][0]{
       siteName,
