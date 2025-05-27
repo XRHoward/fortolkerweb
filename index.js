@@ -113,8 +113,7 @@ export default function Home({ globalSettings, homePage }) {
 
 export async function getStaticProps() {
   try {
-    // Henter riktig dokument med riktig tittel for å sikre at logo vises
-    const globalSettingsQuery = `*[_type == "globalSettings" && title == "Globale innstillinger"][0]{
+    const globalSettingsQuery = `*[_id == "globalSettings"][0]{
       siteName,
       logo {
         asset->{
@@ -150,7 +149,7 @@ export async function getStaticProps() {
     const globalSettings = await client.fetch(globalSettingsQuery);
     const homePage = await client.fetch(homePageQuery);
 
-    console.log("Sanity globalSettings-resultat:", globalSettings);
+    console.log("✅ globalSettings:", globalSettings);
 
     return {
       props: {
