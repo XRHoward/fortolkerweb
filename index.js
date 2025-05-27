@@ -72,7 +72,7 @@ export default function Home({ globalSettings, homePage }) {
                 {homePage.featuredServices.map((service) => (
                   <div key={service.slug.current} className="bg-white p-8 rounded-lg shadow-md">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                      <span className="text-blue-600 text-2xl">{/* evt. ikon */}</span>
+                      <span className="text-blue-600 text-2xl"></span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
                     <p className="text-gray-600 mb-4">{service.shortDescription}</p>
@@ -122,6 +122,9 @@ export async function getStaticProps() {
       }
     }`;
 
+    const globalSettings = await client.fetch(globalSettingsQuery);
+    console.log("✅ FETCHED globalSettings:", globalSettings);
+
     const homePageQuery = `*[_type == "homePage"][0]{
       title,
       heroHeading,
@@ -145,10 +148,7 @@ export async function getStaticProps() {
       ctaButtonText
     }`;
 
-    const globalSettings = await client.fetch(globalSettingsQuery);
     const homePage = await client.fetch(homePageQuery);
-
-    console.log("✅ FETCHED globalSettings:", globalSettings);
     console.log("✅ FETCHED homePage:", homePage);
 
     return {
@@ -159,7 +159,7 @@ export async function getStaticProps() {
       revalidate: 60,
     };
   } catch (error) {
-    console.error('💥 Feil ved henting av innhold fra Sanity:', error.message);
+    console.error("💥 FETCH FAILED:", error.message);
     return {
       props: {
         globalSettings: {},
