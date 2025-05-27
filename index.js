@@ -13,7 +13,7 @@ export default function Home({ globalSettings, homePage }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
+      <Header globalSettings={globalSettings} />
 
       <main className="flex-grow">
         {/* Hero Section */}
@@ -104,7 +104,15 @@ export default function Home({ globalSettings, homePage }) {
 
 export async function getStaticProps() {
   try {
-    const globalSettingsQuery = `*[_type == "globalSettings"][0]`;
+    const globalSettingsQuery = `*[_type == "globalSettings"][0]{
+  siteName,
+  logo {
+    asset->{
+      _id,
+      url
+    }
+  }
+}`;
 
     const homePageQuery = `*[_type == "homePage"][0]{
       title,
