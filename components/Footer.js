@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Fortolker AS</h3>
             <p className="text-gray-400">
-              Rådgivning innen teknologi, innovasjon og bærekraft
+              Rådgiver innen teknologi, innovasjon og ledelse
             </p>
             <p className="text-gray-400 mt-2">
               Org.nr: 123 456 789
@@ -69,9 +69,9 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Kontakt</h3>
             <address className="text-gray-400 not-italic">
-              Hakabekkvegen 63 1<br />
+              Hakabekkvegen 63<br />
               2315 Hamar<br /><br />
-              Telefon: +47 99 60 36 11 <br />
+              Tlf: +47 996 03 611 <br />
               E-post: hei@fortolker.no
               </address>
           </div>
