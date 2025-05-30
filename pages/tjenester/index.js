@@ -10,7 +10,7 @@ export default function Tjenester({ services }) {
     <div className="min-h-screen flex flex-col">
       <Head>
         <title>Tjenester - Fortolker AS</title>
-        <meta name="description" content="Utforsk våre spesialiserte rådgivningstjenester innen teknologi, innovasjon og bærekraft." />
+        <meta name="description" content="Utforsk våre spesialiserte rådgivningstjenester innen teknologi, innovasjon og ledelse." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -25,9 +25,16 @@ export default function Tjenester({ services }) {
                 Våre tjenester
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og bærekraft for å hjelpe din bedrift med å møte fremtidens utfordringer.
+                Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og kommunikasjon for å hjelpe din bedrift med å møte fremtidens utfordringer.
               </p>
-              {/* Internmeny */}
+              <p>Det er viktigere enn noen gang å «lære hele livet» – tilpasse seg ny teknologi, nye arbeidsmetoder – og gjennom det skape nye muligheter og større verdier. Fortolker fokuserer på læring og kompetanseutvikling gjennom aktiv deltagelse i endrings- og utviklingsprosjekter. Vårt formål er ikke bare å løse utfordringer der og da, men at du som kunde faktisk lærer og bygger kompetanse underveis. Slik settes du og din bedrift i stand til å løse utfordringene selv rundt neste sving.
+            <p>Vi har lang fartstid fra et bredt spekter av prosjekter både innen privat og offentlig sektor. Vi hjelper bedriften din videre, enten alene, eller med bistand fra et nettverk av dyktige samarbeidspartnere.
+    </p>
+    <p>Fokus på «å gjøre» og levere effekt og resultat står uansett sentralt i alt vi foretar oss. Vi er effektive, snur oss rundt fort og lover å behandle deg profesjonelt og diskret.
+    </p>
+    <p>Ta kontakt for en prat omkring:
+    </p>
+                          {/* Internmeny */}
               <nav className="flex flex-wrap justify-center gap-4 mt-6">
                 {services.map((service) => (
                   <Link key={service.slug.current} href={`#${service.slug.current}`} className="text-blue-600 hover:underline">
