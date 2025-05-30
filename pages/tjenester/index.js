@@ -26,11 +26,10 @@ export default function Tjenester({ services }) {
               </h1>
               <p className="text-xl text-gray-600 mb-8">
                 Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og kommunikasjon for å hjelpe din bedrift med å møte fremtidens utfordringer.
-              <br/>
-             <br/>Det er viktigere enn noen gang å «lære hele livet» – tilpasse seg ny teknologi, nye arbeidsmetoder – og gjennom det skape nye muligheter og større verdier. Fortolker fokuserer på læring og kompetanseutvikling gjennom aktiv deltagelse i endrings- og utviklingsprosjekter. Vårt formål er ikke bare å løse utfordringer der og da, men at du som kunde faktisk lærer og bygger kompetanse underveis. Slik settes du og din bedrift i stand til å løse utfordringene selv rundt neste sving.
-             <br/>Vi har lang fartstid fra et bredt spekter av prosjekter både innen privat og offentlig sektor. Vi hjelper bedriften din videre, enten alene, eller med bistand fra et nettverk av dyktige samarbeidspartnere.
-             <br/>Fokus på «å gjøre» og levere effekt og resultat står uansett sentralt i alt vi foretar oss. Vi er effektive, snur oss rundt fort og lover å behandle deg profesjonelt og diskret.
-             <br/>
+             <br/><br />Det er viktigere enn noen gang å «lære hele livet» – tilpasse seg ny teknologi, nye arbeidsmetoder – og gjennom det skape nye muligheter og større verdier. Fortolker fokuserer på læring og kompetanseutvikling gjennom aktiv deltagelse i endrings- og utviklingsprosjekter. Vårt formål er ikke bare å løse utfordringer der og da, men at du som kunde faktisk lærer og bygger kompetanse underveis. Slik settes du og din bedrift i stand til å løse utfordringene selv rundt neste sving.
+             <br/><br />Vi har lang fartstid fra et bredt spekter av prosjekter både innen privat og offentlig sektor. Vi hjelper bedriften din videre, enten alene, eller med bistand fra et nettverk av dyktige samarbeidspartnere.
+             <br/><br />Fokus på «å gjøre» og levere effekt og resultat står uansett sentralt i alt vi foretar oss. Vi er effektive, snur oss rundt fort og lover å behandle deg profesjonelt og diskret.
+             <br/><br />
             Ta kontakt for en prat omkring:
     </p>
                           {/* Internmeny */}
