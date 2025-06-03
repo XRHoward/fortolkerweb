@@ -10,7 +10,7 @@ export default function Tjenester({ services }) {
     <div className="min-h-screen flex flex-col">
       <Head>
         <title>Tjenester - Fortolker AS</title>
-        <meta name="description" content="Utforsk våre spesialiserte rådgivningstjenester innen teknologi, innovasjon og ledelse." />
+        <meta name="description" content="Utforsk våre rådgivningstjenester innen teknologi, innovasjon og ledelse." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
