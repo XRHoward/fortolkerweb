@@ -17,6 +17,7 @@
     "@portabletext/react": "^3.0.11",
     "tailwindcss": "^3.4.0",
     "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.32"
-  }
+    "postcss": "^8.4.32",
+    "resend": "^0.20.0"
+    }
 }
