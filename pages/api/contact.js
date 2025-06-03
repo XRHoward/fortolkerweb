@@ -1,6 +1,4 @@
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -10,26 +8,35 @@ export default async function handler(req, res) {
   const { name, email, phone, subject, message } = req.body;
 
   if (!name || !email || !subject || !message) {
-    return res.status(400).json({ message: 'Manglende påkrevde felter' });
+    return res.status(400).json({ message: 'Manglende felter' });
   }
 
   try {
-    await resend.emails.send({
-      from: 'Fortolker Kontaktskjema <kontakt@fortolker.no>',
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || "587", 10),
+      secure: false, // true for port 465, false for 587
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"${name}" <${email}>`,
       to: 'hei@fortolker.no',
       subject: `Ny henvendelse: ${subject}`,
-      reply_to: email,
       html: `
-        <h3>Ny melding fra ${name}</h3>
+        <p><strong>Navn:</strong> ${name}</p>
         <p><strong>E-post:</strong> ${email}</p>
         <p><strong>Telefon:</strong> ${phone || 'Ikke oppgitt'}</p>
         <p><strong>Melding:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>
       `,
     });
 
-    return res.status(200).json({ message: 'Melding sendt' });
+    res.status(200).json({ message: 'Melding sendt' });
   } catch (error) {
-    console.error('Feil ved sending av e-post:', error);
-    return res.status(500).json({ message: 'Feil ved sending av e-post' });
+    console.error('Feil ved sending:', error);
+    res.status(500).json({ message: 'Klarte ikke å sende e-post' });
   }
 }
