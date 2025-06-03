@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { client } from '../../lib/sanity';
+import { client, urlFor } from '../../lib/sanity';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
@@ -71,7 +71,13 @@ export default function OmOss({ aboutPage }) {
                 {aboutPage.teamMembers.map((member, index) => (
                   <div key={index} className="text-center">
                     <div className="w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full bg-gray-200">
-                      {/* Bildet vises her hvis ønskelig – krever urlFor */}
+                      {member.image && (
+                        <img
+                          src={urlFor(member.image).width(300).height(300).url()}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
                     </div>
                     <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
                     <p className="text-gray-600 mb-2">{member.position}</p>
@@ -106,7 +112,8 @@ export async function getStaticProps() {
       teamMembers[]->{
         name,
         position,
-        bio
+        bio,
+        image
       }
     }`;
 
