@@ -52,7 +52,7 @@ export default function Kontakt({ contactInfo }) {
                 {contactInfo?.title || 'Kontakt oss'}
               </h1>
               <p className="text-xl text-gray-600">
-                Vi er her for å hjelpe deg. Ta kontakt med oss for en uforpliktende samtale.
+                Vi er her for å hjelpe deg. Ta kontakt for en uforpliktende samtale eller kaffeprat:
               </p>
             </div>
           </div>
@@ -117,15 +117,7 @@ export default function Kontakt({ contactInfo }) {
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">E-post</h3>
                     <p className="text-gray-600">{contactInfo?.email}</p>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Åpningstider</h3>
-                    <p className="text-gray-600">
-                      {contactInfo?.openingHours?.split('\n').map((line, i) => (
-                        <span key={i}>{line}<br /></span>
-                      ))}
-                    </p>
-                  </div>
-                </div>
+                 </div>
 
                 {/* Sosiale medier */}
                 {contactInfo?.socialMedia?.length > 0 && (
