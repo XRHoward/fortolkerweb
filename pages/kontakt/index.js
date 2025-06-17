@@ -37,7 +37,7 @@ export default function Kontakt({ contactInfo }) {
     <div className="min-h-screen flex flex-col">
       <Head>
         <title>Kontakt - Fortolker AS</title>
-        <meta name="description" content="Kontakt Fortolker AS for rådgivning innen teknologi, innovasjon og bærekraft." />
+        <meta name="description" content="Kontakt Fortolker AS for rådgivning innen innovasjon, teknologi og ledelse." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
