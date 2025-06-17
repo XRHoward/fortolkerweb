@@ -8,10 +8,10 @@ export default function Home({ globalSettings, homePage }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>{globalSettings?.siteName || 'Fortolker AS'} - Rådgivning innen teknologi, innovasjon og bærekraft</title>
+        <title>{globalSettings?.siteName || 'Fortolker AS'} - Rådgivning innen innovasjon, teknologi og ledelse</title>
         <meta
           name="description"
-          content="Fortolker AS tilbyr spesialisert rådgivning innen teknologi, innovasjon og bærekraft for å hjelpe din bedrift med å møte fremtidens utfordringer."
+          content="Fortolker AS tilbyr spesialisert rådgivning innen innovasjon, teknologi og ledelse som hjelper din bedrift med å møte fremtidens utfordringer."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -29,7 +29,7 @@ export default function Home({ globalSettings, homePage }) {
                 </h1>
                 <p className="text-xl text-gray-600 mb-8">
                   {homePage?.heroSubheading ||
-                    'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.'}
+                    'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom innovasjon, teknologi og ledelse.'}
                 </p>
                 <Link
                   href="/kontakt"
