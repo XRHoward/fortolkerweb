@@ -69,10 +69,8 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Kontakt</h3>
             <address className="text-gray-400 not-italic">
-              Hakabekkvegen 63<br />
-              2315 Hamar<br /><br />
               Tlf: +47 996 03 611 <br />
-              E-post: hei@fortolker.no
+              E-post: hei AT fortolker.no
               </address>
           </div>
         </div>
