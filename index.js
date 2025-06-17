@@ -53,7 +53,41 @@ export default function Home({ globalSettings, homePage }) {
           </div>
         </section>
 
-        {/* Du kan legge inn intro, tjenester, cta osv. under her */}
+        {/* Featured Services Section */}
+        {homePage?.featuredServices && homePage.featuredServices.length > 0 && (
+          <section className="py-16 bg-white">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">
+                Våre tjenester
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {homePage.featuredServices.map((service) => (
+                  <Link
+                    key={service.slug?.current}
+                    href={`/tjenester/${service.slug?.current}`}
+                    className="block bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                  >
+                    <div className="flex flex-col items-start gap-4">
+                      {service.icon && (
+                        <img
+                          src={service.icon}
+                          alt={`${service.title} ikon`}
+                          className="h-12 w-12"
+                        />
+                      )}
+                      <h3 className="text-xl font-semibold text-gray-800">
+                        {service.title}
+                      </h3>
+                      <p className="text-gray-600">
+                        {service.shortDescription}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
 
       <Footer />
