@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Header() {
-  const logoUrl = 'https://cdn.sanity.io/images/7izj8dsr/production/6403968b9ca8e6a2843933f03d863bd41f9cedb3-750x417.png';
+  const logoUrl = 'https://cdn.sanity.io/media-libraries/ml6HycARgLFo/images/415a542549643184cf2e8833c028143348e4e0a9-750x417.webp';
 
   return (
     <header className="bg-white shadow-sm">
