@@ -76,7 +76,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          © {new Date().getFullYear()} Fortolker AS. Alle rettigheter reservert.
+          © {new Date().getFullYear()} Fortolker AS. Alle rettigheter forbeholdt.
         </div>
       </div>
     </footer>
