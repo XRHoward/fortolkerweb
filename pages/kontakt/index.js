@@ -117,6 +117,10 @@ export default function Kontakt({ contactInfo }) {
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">E-post</h3>
                     <p className="text-gray-600">{contactInfo?.email}</p>
                   </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">LinkedIn</h3>
+                    <p className="text-gray-600"><a href="https://www.linkedin.com/company/fortolker/">linkedin.com/company/fortolker/</a></p>
+                  </div>
                  </div>
 
                 {/* Sosiale medier */}
