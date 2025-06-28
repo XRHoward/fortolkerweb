@@ -70,7 +70,8 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Kontakt</h3>
             <address className="text-gray-400 not-italic">
               Tlf: +47 996 03 611 <br />
-              E-post: hei AT fortolker.no
+              E-post: hei AT fortolker.no <br />
+              LinkedIn: <a href="https://www.linkedin.com/company/fortolker/">Fortolker</a>
               </address>
           </div>
         </div>
