@@ -12,7 +12,7 @@ export default function Footer() {
               Rådgiver innen teknologi, innovasjon og ledelse
             </p>
             <p className="text-gray-400 mt-2">
-              Org.nr: 123 456 789
+              Org.nr: 835 770 052
             </p>
           </div>
 
