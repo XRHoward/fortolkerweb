@@ -7,7 +7,9 @@ export default function Home({ globalSettings, homePage }) {
   return (
     <Layout globalSettings={globalSettings}>
       <Head>
-        <title>{globalSettings?.siteName || 'Fortolker AS'} - Rådgivning innen innovasjon, teknologi og ledelse</title>
+        <title>
+          {globalSettings?.siteName || 'Fortolker AS'} - Rådgivning innen innovasjon, teknologi og ledelse
+        </title>
         <meta
           name="description"
           content="Fortolker AS tilbyr spesialisert rådgivning innen innovasjon, teknologi og ledelse som hjelper din bedrift med å møte fremtidens utfordringer."
@@ -69,12 +71,8 @@ export default function Home({ globalSettings, homePage }) {
                         className="h-12 w-12"
                       />
                     )}
-                    <h3 className="text-xl font-semibold text-gray-800">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600">
-                      {service.shortDescription}
-                    </p>
+                    <h3 className="text-xl font-semibold text-gray-800">{service.title}</h3>
+                    <p className="text-gray-600">{service.shortDescription}</p>
                   </div>
                 </Link>
               ))}
@@ -82,6 +80,76 @@ export default function Home({ globalSettings, homePage }) {
           </div>
         </section>
       )}
+
+      {/* CTA Section */}
+      {homePage?.ctaHeading && (
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="bg-blue-600 rounded-lg p-8 md:p-12 text-center">
+              <h2 className="text-3xl font-bold text-white mb-4">{homePage.ctaHeading}</h2>
+              <p className="text-blue-100 mb-8 max-w-2xl mx-auto">{homePage.ctaText}</p>
+              <Link
+                href="/kontakt"
+                className="inline-block bg-white text-blue-600 hover:bg-blue-50 font-medium py-3 px-6 rounded-md transition duration-300"
+              >
+                {homePage.ctaButtonText || 'Kontakt oss'}
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  try {
+    const globalSettingsQuery = `*[_type == "globalSettings"][0]{
+      siteName,
+      logo {
+        asset->{_id, url}
+      }
+    }`;
+
+    const homePageQuery = `*[_type == "homePage"][0]{
+      title,
+      heroHeading,
+      heroSubheading,
+      heroImage {
+        asset->{_id, url}
+      },
+      introHeading,
+      introText,
+      featuredServices[]->{
+        title,
+        slug,
+        icon,
+        shortDescription
+      },
+      ctaHeading,
+      ctaText,
+      ctaButtonText
+    }`;
+
+    const [globalSettings, homePage] = await Promise.all([
+      client.fetch(globalSettingsQuery),
+      client.fetch(homePageQuery)
+    ]);
+
+    return {
+      props: {
+        globalSettings,
+        homePage,
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error("💥 FETCH FAILED:", error.message);
+    return {
+      props: {
+        globalSettings: {},
+        homePage: {},
+      },
+    };
+  }
 }
