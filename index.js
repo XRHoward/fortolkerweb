@@ -1,12 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { client } from '../lib/sanity';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Layout from '../components/Layout'; // <-- Viktig
 
 export default function Home({ globalSettings, homePage }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <Layout>
       <Head>
         <title>{globalSettings?.siteName || 'Fortolker AS'} - Rådgivning innen innovasjon, teknologi og ledelse</title>
         <meta
@@ -15,8 +14,6 @@ export default function Home({ globalSettings, homePage }) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Header globalSettings={globalSettings} />
 
       <main className="flex-grow">
         {/* Hero Section */}
@@ -89,71 +86,6 @@ export default function Home({ globalSettings, homePage }) {
           </section>
         )}
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
-}
-
-export async function getStaticProps() {
-  try {
-    console.log("🟡 STARTER fetches fra Sanity...");
-
-    const globalSettingsQuery = `*[_type == "globalSettings"][0]{
-      siteName,
-      logo {
-        asset->{
-          _id,
-          url
-        }
-      }
-    }`;
-
-    const homePageQuery = `*[_type == "homePage"][0]{
-      title,
-      heroHeading,
-      heroSubheading,
-      heroImage {
-        asset->{
-          _id,
-          url
-        }
-      },
-      introHeading,
-      introText,
-      featuredServices[]->{
-        title,
-        slug,
-        icon,
-        shortDescription
-      },
-      ctaHeading,
-      ctaText,
-      ctaButtonText
-    }`;
-
-    const [globalSettings, homePage] = await Promise.all([
-      client.fetch(globalSettingsQuery),
-      client.fetch(homePageQuery)
-    ]);
-
-    console.log("✅ FETCHED globalSettings:", globalSettings);
-    console.log("✅ FETCHED homePage:", homePage);
-
-    return {
-      props: {
-        globalSettings,
-        homePage,
-      },
-      revalidate: 60,
-    };
-  } catch (error) {
-    console.error("💥 FETCH FAILED:", error.message);
-    return {
-      props: {
-        globalSettings: {},
-        homePage: {},
-      },
-    };
-  }
 }
