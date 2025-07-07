@@ -119,8 +119,6 @@ export default function Home({ globalSettings, homePage }) {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }
