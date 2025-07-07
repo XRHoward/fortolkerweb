@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { client } from '../lib/sanity';
 import { urlFor } from '../lib/sanity';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 
 export default function Home({ globalSettings, homePage }) {
   return (
