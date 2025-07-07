@@ -160,8 +160,6 @@ export default function Kontakt({ contactInfo }) {
           </section>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 }
