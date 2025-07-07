@@ -143,8 +143,6 @@ export default function Tjenester({ services }) {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }
