@@ -89,8 +89,6 @@ export default function OmOss({ aboutPage }) {
           </section>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 }
