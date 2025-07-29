@@ -114,6 +114,17 @@ export default function Kontakt({ contactInfo }) {
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">LinkedIn</h3>
                     <p className="text-gray-600"><a href="https://www.linkedin.com/company/fortolker/">linkedin.com/company/fortolker/</a></p>
                   </div>
+                
+                <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Adresse</h3>
+                    <p className="text-gray-600">
+                      {contactInfo?.address?.split('\n').map((line, i) => (
+                        <span key={i}>{line}<br /></span>
+                      ))}
+                    </p>
+                  </div>
+
+
                  </div>
 
                 {/* Sosiale medier */}
