@@ -101,14 +101,7 @@ export default function Kontakt({ contactInfo }) {
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Kontaktinformasjon</h2>
                 <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Adresse</h3>
-                    <p className="text-gray-600">
-                      {contactInfo?.address?.split('\n').map((line, i) => (
-                        <span key={i}>{line}<br /></span>
-                      ))}
-                    </p>
-                  </div>
+               
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">Telefon</h3>
                     <p className="text-gray-600">{contactInfo?.phone}</p>
