@@ -7,7 +7,7 @@ export default function OmOss({ aboutPage }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>{aboutPage?.title || 'Om oss'} - Fortolker AS</title>
+        <title>{aboutPage?.title || 'Om oss'} - Historie, verdier og teamet</title>
         <meta name="description" content="Lær mer om Fortolker AS, vår historie, våre verdier og vårt team." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
