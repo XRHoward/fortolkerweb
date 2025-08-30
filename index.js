@@ -7,10 +7,10 @@ export default function HomePage({ globalSettings, homePage }) {
   return (
     <>
       <Head>
-        <title>{homePage?.title || 'Fortolker'} - Rådgivning innen innovasjon, teknologi og ledelse</title>
+        <title>{homePage?.title || 'Fortolker'} | Rådgiver innen tek, innovasjon og forretningsutvikling</title>
         <meta
           name="description"
-          content="Fortolker tilbyr rådgivning innen innovasjon, teknologi og ledelse for å hjelpe din bedrift med å møte fremtidens utfordringer."
+          content="Fortolker AS tilbyr rådgivning innen teknologi, innovasjon og forretningsutvikling som hjelper din organisasjon med å skape verdi i dag og i morgen."
         />
       </Head>
 
