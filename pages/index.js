@@ -9,7 +9,7 @@ export default function Home({ globalSettings, homePage }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>{globalSettings?.siteName || 'Fortolker AS'} - Rådgivning innen innovasjon, teknologi og ledelse</title>
+        <title>Fortolker AS - Rådgivning innen innovasjon, teknologi og ledelse</title>
         <meta name="description" content="Fortolker tilbyr rådgivning innen innovasjon, teknologi og ledelse for å hjelpe din bedrift med å møte fremtidens utfordringer." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
