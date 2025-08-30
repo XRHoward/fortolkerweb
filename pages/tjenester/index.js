@@ -9,7 +9,7 @@ export default function Tjenester({ services }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>Tjenester - Fortolker AS</title>
+         <title>{aboutPage?.title || 'Tjenester'} | Rådgiver innen tek, innovasjon og forretningsutvikling</title>
         <meta name="description" content="Utforsk våre rådgivningstjenester innen teknologi, innovasjon og ledelse." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
