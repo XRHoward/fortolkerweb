@@ -25,7 +25,7 @@ export default function Tjenester({ services }) {
                 Våre tjenester
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og kommunikasjon for å hjelpe din bedrift med å møte fremtidens utfordringer.
+                Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og ledelse for å hjelpe din bedrift med å møte fremtidens utfordringer.
               </p>
                           {/* Internmeny */}
               <nav className="flex flex-wrap justify-center gap-4 mt-6">
