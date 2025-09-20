@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslation } from 'next-i18next';
+import LanguageSelector from './LanguageSelector';
 
 export default function Header() {
+  const { t } = useTranslation('common');
   const [menuOpen, setMenuOpen] = useState(false);
   const logoUrl = 'https://cdn.sanity.io/media-libraries/ml6HycARgLFo/images/415a542549643184cf2e8833c028143348e4e0a9-750x417.webp';
 
@@ -22,11 +25,16 @@ export default function Header() {
 
           {/* Desktop-meny */}
           <nav className="hidden md:flex space-x-8">
-            <Link href="/" className="text-gray-600 hover:text-blue-600">Hjem</Link>
-            <Link href="/om-oss" className="text-gray-600 hover:text-blue-600">Om oss</Link>
-            <Link href="/tjenester" className="text-gray-600 hover:text-blue-600">Tjenester</Link>
-            <Link href="/kontakt" className="text-gray-600 hover:text-blue-600">Kontakt</Link>
+            <Link href="/" className="text-gray-600 hover:text-blue-600">{t('navigation.home')}</Link>
+            <Link href="/om-oss" className="text-gray-600 hover:text-blue-600">{t('navigation.about')}</Link>
+            <Link href="/tjenester" className="text-gray-600 hover:text-blue-600">{t('navigation.services')}</Link>
+            <Link href="/kontakt" className="text-gray-600 hover:text-blue-600">{t('navigation.contact')}</Link>
           </nav>
+
+          {/* Språkvelger */}
+          <div className="hidden md:flex">
+            <LanguageSelector />
+          </div>
 
           {/* Hamburger-knapp */}
           <div className="md:hidden">
@@ -47,10 +55,13 @@ export default function Header() {
         {/* Mobilmeny */}
         {menuOpen && (
           <nav className="md:hidden flex flex-col gap-4 pb-4">
-            <Link href="/" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>Hjem</Link>
-            <Link href="/om-oss" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>Om oss</Link>
-            <Link href="/tjenester" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>Tjenester</Link>
-            <Link href="/kontakt" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>Kontakt</Link>
+            <Link href="/" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>{t('navigation.home')}</Link>
+            <Link href="/om-oss" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>{t('navigation.about')}</Link>
+            <Link href="/tjenester" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>{t('navigation.services')}</Link>
+            <Link href="/kontakt" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>{t('navigation.contact')}</Link>
+            <div className="pt-2 border-t border-gray-200">
+              <LanguageSelector />
+            </div>
           </nav>
         )}
       </div>

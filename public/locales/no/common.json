@@ -1,0 +1,32 @@
+{
+  "navigation": {
+    "home": "Hjem",
+    "about": "Om oss",
+    "services": "Tjenester",
+    "contact": "Kontakt"
+  },
+  "buttons": {
+    "contactUs": "Kontakt oss",
+    "readMore": "Les mer",
+    "send": "Send",
+    "close": "Lukk"
+  },
+  "common": {
+    "loading": "Laster...",
+    "error": "Noe gikk galt",
+    "noImage": "Ingen bilde",
+    "language": "Språk",
+    "norwegian": "Norsk",
+    "english": "English"
+  },
+  "homepage": {
+    "defaultHeroHeading": "Rådgivning for fremtidens utfordringer",
+    "defaultHeroSubheading": "Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.",
+    "ourServices": "Våre tjenester",
+    "defaultCtaButton": "Kontakt oss"
+  },
+  "meta": {
+    "defaultTitle": "Fortolker AS - Rådgivning innen innovasjon, teknologi og ledelse",
+    "defaultDescription": "Fortolker tilbyr rådgivning innen innovasjon, teknologi og ledelse for å hjelpe din bedrift med å møte fremtidens utfordringer."
+  }
+}

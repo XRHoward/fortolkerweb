@@ -1,0 +1,45 @@
+{
+  "about": {
+    "title": "About Us - Fortolker AS",
+    "description": "Learn more about Fortolker AS, our history, our values and our team.",
+    "defaultHeroHeading": "About Fortolker",
+    "defaultHeroText": "We are passionate consultants who help businesses navigate the intersection of technology, innovation and sustainability.",
+    "defaultHistoryHeading": "Our Story",
+    "defaultValuesHeading": "Our Values",
+    "defaultTeamHeading": "Our Team"
+  },
+  "services": {
+    "title": "Services - Fortolker AS",
+    "description": "Discover our consulting services in innovation, technology and leadership.",
+    "defaultHeroHeading": "Our Services",
+    "defaultHeroText": "We offer comprehensive consulting services to help your business meet tomorrow's challenges."
+  },
+  "contact": {
+    "title": "Contact - Fortolker AS",
+    "description": "Get in touch with Fortolker AS for consulting in innovation, technology and leadership.",
+    "defaultHeroHeading": "Contact Us",
+    "defaultHeroText": "Ready to take your business to the next level? We're here to help.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "company": "Company",
+      "message": "Message",
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "your.email@example.com",
+      "companyPlaceholder": "Your company",
+      "messagePlaceholder": "Tell us about your project or challenge...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Thank you! Your message has been sent successfully.",
+      "error": "Something went wrong. Please try again."
+    },
+    "info": {
+      "heading": "Contact Information",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "hours": "Business Hours",
+      "hoursValue": "Monday - Friday: 9:00 - 17:00"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "about": {
+    "title": "Om oss - Fortolker AS",
+    "description": "Lær mer om Fortolker AS, vår historie, våre verdier og vårt team.",
+    "defaultHeroHeading": "Om Fortolker",
+    "defaultHeroText": "Vi er engasjerte rådgivere som hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.",
+    "defaultHistoryHeading": "Vår historie",
+    "defaultValuesHeading": "Våre verdier",
+    "defaultTeamHeading": "Vårt team"
+  },
+  "services": {
+    "title": "Tjenester - Fortolker AS",
+    "description": "Oppdag våre rådgivningstjenester innen innovasjon, teknologi og ledelse.",
+    "defaultHeroHeading": "Våre tjenester",
+    "defaultHeroText": "Vi tilbyr omfattende rådgivningstjenester for å hjelpe din bedrift med å møte morgendagens utfordringer."
+  },
+  "contact": {
+    "title": "Kontakt - Fortolker AS",
+    "description": "Ta kontakt med Fortolker AS for rådgivning innen innovasjon, teknologi og ledelse.",
+    "defaultHeroHeading": "Kontakt oss",
+    "defaultHeroText": "Klar til å ta bedriften din til neste nivå? Vi er her for å hjelpe.",
+    "form": {
+      "name": "Navn",
+      "email": "E-post",
+      "company": "Bedrift",
+      "message": "Melding",
+      "namePlaceholder": "Ditt navn",
+      "emailPlaceholder": "din.epost@eksempel.no",
+      "companyPlaceholder": "Din bedrift",
+      "messagePlaceholder": "Fortell oss om ditt prosjekt eller utfordring...",
+      "send": "Send melding",
+      "sending": "Sender...",
+      "success": "Takk! Din melding er sendt.",
+      "error": "Noe gikk galt. Vennligst prøv igjen."
+    },
+    "info": {
+      "heading": "Kontaktinformasjon",
+      "address": "Adresse",
+      "phone": "Telefon",
+      "email": "E-post",
+      "hours": "Åpningstider",
+      "hoursValue": "Mandag - Fredag: 09:00 - 17:00"
+    }
+  }
+}

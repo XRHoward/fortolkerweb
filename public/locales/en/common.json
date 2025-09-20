@@ -1,0 +1,32 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "buttons": {
+    "contactUs": "Contact Us",
+    "readMore": "Read More",
+    "send": "Send",
+    "close": "Close"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "noImage": "No image",
+    "language": "Language",
+    "norwegian": "Norsk",
+    "english": "English"
+  },
+  "homepage": {
+    "defaultHeroHeading": "Consulting for Tomorrow's Challenges",
+    "defaultHeroSubheading": "We help businesses navigate the intersection of technology, innovation, and sustainability.",
+    "ourServices": "Our Services",
+    "defaultCtaButton": "Contact Us"
+  },
+  "meta": {
+    "defaultTitle": "Fortolker AS - Consulting in Innovation, Technology and Leadership",
+    "defaultDescription": "Fortolker offers consulting in innovation, technology and leadership to help your business meet future challenges."
+  }
+}
