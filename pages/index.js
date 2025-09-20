@@ -2,28 +2,15 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { client } from '../lib/sanity';
 import { urlFor } from '../lib/sanity';
-import { getLocalizedField } from '../lib/sanityHelpers';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/router';
 
 export default function Home({ globalSettings, homePage }) {
-  const { t } = useTranslation('common');
-  const router = useRouter();
-  const locale = router.locale || 'no';
-
-  // Hent lokaliserte verdier med fallback til oversettelser
-  const heroHeading = getLocalizedField(homePage?.heroHeading, locale) || t('homepage.defaultHeroHeading');
-  const heroSubheading = getLocalizedField(homePage?.heroSubheading, locale) || t('homepage.defaultHeroSubheading');
-  const ctaButtonText = getLocalizedField(homePage?.ctaButtonText, locale) || t('homepage.defaultCtaButton');
-
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>{t('meta.defaultTitle')}</title>
-        <meta name="description" content={t('meta.defaultDescription')} />
+        <title>Fortolker AS - Rådgivning innen innovasjon, teknologi og ledelse</title>
+        <meta name="description" content="Fortolker tilbyr rådgivning innen innovasjon, teknologi og ledelse for å hjelpe din bedrift med å møte fremtidens utfordringer." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -36,13 +23,13 @@ export default function Home({ globalSettings, homePage }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  {heroHeading}
+                  {homePage?.heroHeading || 'Rådgivning for fremtidens utfordringer'}
                 </h1>
                 <p className="text-xl text-gray-600 mb-8">
-                  {heroSubheading}
+                  {homePage?.heroSubheading || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.'}
                 </p>
                 <Link href="/kontakt" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition duration-300">
-                  {t('buttons.contactUs')}
+                  Kontakt oss
                 </Link>
               </div>
               <div className="order-first md:order-last">
@@ -65,10 +52,10 @@ export default function Home({ globalSettings, homePage }) {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                {getLocalizedField(homePage?.introHeading, locale)}
+                {homePage?.introHeading}
               </h2>
               <p className="text-lg text-gray-600">
-                {getLocalizedField(homePage?.introText, locale)}
+                {homePage?.introText}
               </p>
             </div>
           </div>
@@ -78,7 +65,7 @@ export default function Home({ globalSettings, homePage }) {
         {homePage?.featuredServices?.length > 0 && (
           <section className="bg-gray-50 py-16">
             <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">{t('homepage.ourServices')}</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Våre tjenester</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {homePage.featuredServices.map((service) => (
                   <Link href={`/tjenester#${service.slug.current}`} key={service.slug.current} passHref>
@@ -93,18 +80,18 @@ export default function Home({ globalSettings, homePage }) {
                             />
                           ) : (
                             <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
-                              {t('common.noImage')}
+                              Ingen bilde
                             </div>
                           )}
                         </div>
                         <h3 className="text-xl font-bold text-gray-900 mb-3">
-                          {getLocalizedField(service.title, locale) || service.title}
+                          {service.title}
                         </h3>
                         <p className="text-gray-600 mb-4 flex-grow">
-                          {getLocalizedField(service.shortDescription, locale) || service.shortDescription}
+                          {service.shortDescription}
                         </p>
                         <span className="text-blue-600 hover:text-blue-800 font-medium mt-auto">
-                          {t('buttons.readMore')} →
+                          Les mer →
                         </span>
                       </div>
                     </a>
@@ -120,13 +107,13 @@ export default function Home({ globalSettings, homePage }) {
           <div className="container mx-auto px-4">
             <div className="bg-blue-600 rounded-lg p-8 md:p-12 text-center">
               <h2 className="text-3xl font-bold text-white mb-4">
-                {getLocalizedField(homePage?.ctaHeading, locale)}
+                {homePage?.ctaHeading}
               </h2>
               <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-                {getLocalizedField(homePage?.ctaText, locale)}
+                {homePage?.ctaText}
               </p>
               <Link href="/kontakt" className="inline-block bg-white text-blue-600 hover:bg-blue-50 font-medium py-3 px-6 rounded-md transition duration-300">
-                {ctaButtonText}
+                {homePage?.ctaButtonText || 'Kontakt oss'}
               </Link>
             </div>
           </div>
@@ -136,7 +123,7 @@ export default function Home({ globalSettings, homePage }) {
   );
 }
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps() {
   try {
     const globalSettingsQuery = `*[_type == "globalSettings"][0]`;
 
@@ -173,7 +160,6 @@ export async function getStaticProps({ locale }) {
 
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
         globalSettings,
         homePage,
       },
@@ -183,7 +169,6 @@ export async function getStaticProps({ locale }) {
     console.error('Feil ved henting av innhold fra Sanity:', error);
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
         globalSettings: {},
         homePage: {},
       },
