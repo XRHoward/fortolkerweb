@@ -25,6 +25,7 @@ export default function Header() {
             <Link href="/" className="text-gray-600 hover:text-blue-600">Hjem</Link>
             <Link href="/om-oss" className="text-gray-600 hover:text-blue-600">Om oss</Link>
             <Link href="/tjenester" className="text-gray-600 hover:text-blue-600">Tjenester</Link>
+            <Link href="/blogg" className="text-gray-600 hover:text-blue-600">Blogg</Link>
             <Link href="/kontakt" className="text-gray-600 hover:text-blue-600">Kontakt</Link>
           </nav>
 
@@ -50,6 +51,7 @@ export default function Header() {
             <Link href="/" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>Hjem</Link>
             <Link href="/om-oss" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>Om oss</Link>
             <Link href="/tjenester" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>Tjenester</Link>
+            <Link href="/blogg" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>Blogg</Link>
             <Link href="/kontakt" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>Kontakt</Link>
           </nav>
         )}
