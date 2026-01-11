@@ -1,13 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
 import { client } from '../../lib/sanity';
 import { urlFor } from '../../lib/sanity';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { format } from 'date-fns';
 import { nb } from 'date-fns/locale';
-
-import { useState } from 'react';
 
 export default function BloggOversikt({ posts, categories }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -80,12 +79,11 @@ export default function BloggOversikt({ posts, categories }) {
             {filteredPosts && filteredPosts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredPosts.map((post) => (
-                  <Link
-                    key={post._id}
-                    href={`/blogg/${post.slug.current}`}
-                    className="group"
-                  >
-                    <article className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                  <article key={post._id} className="group">
+                    <Link
+                      href={`/blogg/${post.slug.current}`}
+                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col block"
+                    >
                       {post.mainImage && (
                         <div className="relative h-48 overflow-hidden">
                           <img
@@ -136,8 +134,8 @@ export default function BloggOversikt({ posts, categories }) {
                           )}
                         </div>
                       </div>
-                    </article>
-                  </Link>
+                    </Link>
+                  </article>
                 ))}
               </div>
             ) : (
