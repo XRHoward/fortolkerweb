@@ -104,11 +104,11 @@ export default function Kontakt({ contactInfo }) {
                
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">Telefon</h3>
-                    <p className="text-gray-600">{contactInfo?.phone}</p>
+                    <p className="text-gray-600">{contactInfo?.contactPhone}</p>
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">E-post</h3>
-                    <p className="text-gray-600">{contactInfo?.email}</p>
+                    <p className="text-gray-600">{contactInfo?.contactEmail}</p>
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">LinkedIn</h3>
@@ -170,12 +170,12 @@ export default function Kontakt({ contactInfo }) {
 
 export async function getStaticProps() {
   try {
-    const query = `*[_type == "contactInfo"][0]`;
-    const contactInfo = await client.fetch(query);
+    const globalSettings = await client.fetch(`*[_type == "globalSettings"][0]`);
 
     return {
       props: {
-        contactInfo,
+        globalSettings,
+        contactInfo: globalSettings,
       },
       revalidate: 60,
     };
@@ -183,6 +183,7 @@ export async function getStaticProps() {
     console.error('Feil ved henting av kontaktinfo fra Sanity:', error);
     return {
       props: {
+        globalSettings: {},
         contactInfo: {},
       },
     };

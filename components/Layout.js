@@ -8,7 +8,7 @@ export default function Layout({ children, globalSettings }) {
       <main className="pt-24 md:pt-28 px-4">
         {children}
       </main>
-      <Footer />
+      <Footer settings={globalSettings} />
     </>
   );
 }

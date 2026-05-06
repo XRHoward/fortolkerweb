@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function Footer() {
+export default function Footer({ settings }) {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">
@@ -68,11 +68,20 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Kontakt</h3>
-            <address className="text-gray-400 not-italic">
-              Tlf: +47 996 03 611 <br />
-              E-post: hei AT fortolker.no <br />
-              <a href="https://www.linkedin.com/company/fortolker/">LinkedIn</a>
-              </address>
+            <address className="text-gray-400 not-italic space-y-1">
+              {settings?.contactPhone && <p>Tlf: {settings.contactPhone}</p>}
+              {settings?.contactEmail && <p>E-post: {settings.contactEmail}</p>}
+              {settings?.address && (
+                <p>
+                  {settings.address.split('\n').map((line, i) => (
+                    <span key={i}>{line}<br /></span>
+                  ))}
+                </p>
+              )}
+              {settings?.socialMedia?.map((s, i) => (
+                <p key={i}><a href={s.url} className="hover:text-white capitalize">{s.platform}</a></p>
+              ))}
+            </address>
           </div>
         </div>
 
