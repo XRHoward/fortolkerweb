@@ -7,17 +7,19 @@ import Footer from '../components/Footer';
 
 function ClientLogo({ c }) {
   const inner = c.logo?.asset?.url
-    ? <img src={c.logo.asset.url} alt={c.name} className="h-10 md:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300" />
-    : <div className="h-10 md:h-12 px-8 bg-gray-200 rounded flex items-center justify-center text-gray-400 text-sm font-medium">{c.name}</div>;
+    ? <img src={c.logo.asset.url} alt={c.name} className="w-full h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" />
+    : <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center text-gray-400 text-sm font-medium">{c.name}</div>;
 
-  if (c.url && c.url !== '#') {
+  const wrapper = "flex items-center justify-center w-full h-16";
+
+  if (c.url) {
     return (
-      <a href={c.url} target="_blank" rel="noopener noreferrer" title={c.name} className="opacity-50 hover:opacity-100 transition-opacity duration-300">
+      <a href={c.url} target="_blank" rel="noopener noreferrer" title={c.name} className={`${wrapper} opacity-60 hover:opacity-100 transition-opacity duration-300`}>
         {inner}
       </a>
     );
   }
-  return <div className="opacity-50">{inner}</div>;
+  return <div className={`${wrapper} opacity-60`}>{inner}</div>;
 }
 
 function ClientsSection({ clients }) {
@@ -26,11 +28,11 @@ function ClientsSection({ clients }) {
   return (
     <section className="pt-4 pb-16">
       <div className="container mx-auto px-4">
-        <div className="bg-gray-50 rounded-lg p-8 md:p-12">
+        <div className="p-8 md:p-12">
         <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">
           Noen av våre kunder
         </h2>
-        <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
           {list.map((c) => <ClientLogo key={c._id} c={c} />)}
         </div>
         </div>
@@ -95,9 +97,6 @@ export default function Home({ globalSettings, homePage }) {
           </div>
         </section>
 
-        {/* Clients Section */}
-        <ClientsSection clients={homePage?.featuredClients} />
-
         {/* Services Section */}
         {homePage?.featuredServices?.length > 0 && (
           <section className="bg-gray-50 py-16">
@@ -136,6 +135,9 @@ export default function Home({ globalSettings, homePage }) {
             </div>
           </section>
         )}
+
+        {/* Clients Section */}
+        <ClientsSection clients={homePage?.featuredClients} />
 
         {/* Call to Action */}
         <section className="py-16">
