@@ -5,13 +5,6 @@ import { urlFor } from '../lib/sanity';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const PLACEHOLDER_CLIENTS = [
-  { _id: '1', name: 'Kunde A', url: '#', logo: null },
-  { _id: '2', name: 'Kunde B', url: '#', logo: null },
-  { _id: '3', name: 'Kunde C', url: '#', logo: null },
-  { _id: '4', name: 'Kunde D', url: '#', logo: null },
-];
-
 function ClientLogo({ c }) {
   const inner = c.logo?.asset?.url
     ? <img src={c.logo.asset.url} alt={c.name} className="h-10 md:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300" />
@@ -28,7 +21,8 @@ function ClientLogo({ c }) {
 }
 
 function ClientsSection({ clients }) {
-  const list = clients && clients.length > 0 ? clients : PLACEHOLDER_CLIENTS;
+  if (!clients || clients.length === 0) return null;
+  const list = clients;
   return (
     <section className="pt-4 pb-16">
       <div className="container mx-auto px-4">
