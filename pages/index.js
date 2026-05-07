@@ -5,6 +5,46 @@ import { urlFor } from '../lib/sanity';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+const PLACEHOLDER_CLIENTS = [
+  { _id: '1', name: 'Kunde A', url: '#', logo: null },
+  { _id: '2', name: 'Kunde B', url: '#', logo: null },
+  { _id: '3', name: 'Kunde C', url: '#', logo: null },
+  { _id: '4', name: 'Kunde D', url: '#', logo: null },
+];
+
+function ClientLogo({ c }) {
+  const inner = c.logo?.asset?.url
+    ? <img src={c.logo.asset.url} alt={c.name} className="h-10 md:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300" />
+    : <div className="h-10 md:h-12 px-8 bg-gray-200 rounded flex items-center justify-center text-gray-400 text-sm font-medium">{c.name}</div>;
+
+  if (c.url && c.url !== '#') {
+    return (
+      <a href={c.url} target="_blank" rel="noopener noreferrer" title={c.name} className="opacity-50 hover:opacity-100 transition-opacity duration-300">
+        {inner}
+      </a>
+    );
+  }
+  return <div className="opacity-50">{inner}</div>;
+}
+
+function ClientsSection({ clients }) {
+  const list = clients && clients.length > 0 ? clients : PLACEHOLDER_CLIENTS;
+  return (
+    <section className="pt-4 pb-16">
+      <div className="container mx-auto px-4">
+        <div className="bg-gray-50 rounded-lg p-8 md:p-12">
+        <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">
+          Noen av våre kunder
+        </h2>
+        <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+          {list.map((c) => <ClientLogo key={c._id} c={c} />)}
+        </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home({ globalSettings, homePage }) {
   return (
     <div className="min-h-screen flex flex-col">
@@ -60,6 +100,9 @@ export default function Home({ globalSettings, homePage }) {
             </div>
           </div>
         </section>
+
+        {/* Clients Section */}
+        <ClientsSection clients={homePage?.featuredClients} />
 
         {/* Services Section */}
         {homePage?.featuredServices?.length > 0 && (
@@ -150,7 +193,18 @@ export async function getStaticProps() {
       },
       ctaHeading,
       ctaText,
-      ctaButtonText
+      ctaButtonText,
+      featuredClients[]->{
+        _id,
+        name,
+        url,
+        logo {
+          asset->{
+            _id,
+            url
+          }
+        }
+      }
     }`;
 
     const globalSettings = await client.fetch(globalSettingsQuery);
