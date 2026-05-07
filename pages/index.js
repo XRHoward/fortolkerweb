@@ -10,7 +10,7 @@ function ClientLogo({ c }) {
     ? <img src={c.logo.asset.url} alt={c.name} className="w-full h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" />
     : <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center text-gray-400 text-sm font-medium">{c.name}</div>;
 
-  const wrapper = "flex items-center justify-center w-full h-16";
+  const wrapper = "flex items-center justify-center w-full h-10";
 
   if (c.url) {
     return (
