@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { client } from '../../lib/sanity';
+import { t } from '../../lib/i18n';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { PortableText } from '@portabletext/react';
 
-export default function Tjenester({ services }) {
+export default function Tjenester({ services, locale, globalSettings }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
@@ -22,16 +23,18 @@ export default function Tjenester({ services }) {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Våre tjenester
+                {locale === 'en' ? 'Our services' : 'Våre tjenester'}
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og ledelse for å hjelpe din bedrift med å møte fremtidens utfordringer.
+                {locale === 'en'
+                  ? 'We offer specialised consulting within technology, innovation and management.'
+                  : 'Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og ledelse for å hjelpe din bedrift med å møte fremtidens utfordringer.'}
               </p>
                           {/* Internmeny */}
               <nav className="flex flex-wrap justify-center gap-4 mt-6">
                 {services.map((service) => (
                   <Link key={service.slug.current} href={`#${service.slug.current}`} className="text-blue-600 hover:underline">
-                    {service.title}
+                    {t(service, 'title', locale)}
                   </Link>
                 ))}
               </nav>
@@ -62,17 +65,17 @@ export default function Tjenester({ services }) {
                       )}
                     </div>
                     <div>
-                      <h2 className="text-3xl font-bold text-gray-900 mb-6">{service.title}</h2>
-                      {service.fullDescription ? (
+                      <h2 className="text-3xl font-bold text-gray-900 mb-6">{t(service, 'title', locale)}</h2>
+                      {t(service, 'fullDescription', locale) ? (
                         <div className="text-lg text-gray-600 mb-6 prose max-w-none">
-                          <PortableText value={service.fullDescription} />
+                          <PortableText value={t(service, 'fullDescription', locale)} />
                         </div>
                       ) : (
-                        <p className="text-lg text-gray-600 mb-6">{service.shortDescription}</p>
+                        <p className="text-lg text-gray-600 mb-6">{t(service, 'shortDescription', locale)}</p>
                       )}
-                      {service.features?.length > 0 && (
+                      {(t(service, 'features', locale))?.length > 0 && (
                         <ul className="space-y-3">
-                          {service.features.map((feature, i) => (
+                          {t(service, 'features', locale).map((feature, i) => (
                             <li key={i} className="flex items-start">
                               <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -87,17 +90,17 @@ export default function Tjenester({ services }) {
                 ) : (
                   <>
                     <div>
-                      <h2 className="text-3xl font-bold text-gray-900 mb-6">{service.title}</h2>
-                      {service.fullDescription ? (
+                      <h2 className="text-3xl font-bold text-gray-900 mb-6">{t(service, 'title', locale)}</h2>
+                      {t(service, 'fullDescription', locale) ? (
                         <div className="text-lg text-gray-600 mb-6 prose max-w-none">
-                          <PortableText value={service.fullDescription} />
+                          <PortableText value={t(service, 'fullDescription', locale)} />
                         </div>
                       ) : (
-                        <p className="text-lg text-gray-600 mb-6">{service.shortDescription}</p>
+                        <p className="text-lg text-gray-600 mb-6">{t(service, 'shortDescription', locale)}</p>
                       )}
-                      {service.features?.length > 0 && (
+                      {(t(service, 'features', locale))?.length > 0 && (
                         <ul className="space-y-3">
-                          {service.features.map((feature, i) => (
+                          {t(service, 'features', locale).map((feature, i) => (
                             <li key={i} className="flex items-start">
                               <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -131,42 +134,46 @@ export default function Tjenester({ services }) {
           <div className="container mx-auto px-4">
             <div className="bg-blue-600 rounded-lg p-8 md:p-12 text-center">
               <h2 className="text-3xl font-bold text-white mb-4">
-                Klar for å ta neste steg?
+                {locale === 'en' ? 'Ready for the next step?' : 'Klar for å ta neste steg?'}
               </h2>
               <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-                Kontakt oss i dag for en uforpliktende samtale om hvordan vi kan hjelpe din bedrift med å møte fremtidens utfordringer.
+                {locale === 'en'
+                  ? 'Contact us today for a no-obligation conversation about how we can help your business.'
+                  : 'Kontakt oss i dag for en uforpliktende samtale om hvordan vi kan hjelpe din bedrift med å møte fremtidens utfordringer.'}
               </p>
               <Link href="/kontakt" className="inline-block bg-white text-blue-600 hover:bg-blue-50 font-medium py-3 px-6 rounded-md transition duration-300">
-                Kontakt oss
+                {locale === 'en' ? 'Contact us' : 'Kontakt oss'}
               </Link>
             </div>
           </div>
         </section>
       </main>
+      <Footer settings={globalSettings} />
     </div>
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
   try {
     const servicesQuery = `*[_type == "service"] | order(_createdAt asc) {
-      title,
+      title, title_en,
       slug,
-      shortDescription,
-      fullDescription,
-      features,
+      shortDescription, shortDescription_en,
+      fullDescription, fullDescription_en,
+      features, features_en,
       image {
-        asset->{
-          url
-        }
+        asset->{ url }
       }
     }`;
 
     const services = await client.fetch(servicesQuery);
+    const globalSettings = await client.fetch(`*[_type == "globalSettings"][0]`);
 
     return {
       props: {
         services,
+        locale,
+        globalSettings,
       },
       revalidate: 60,
     };
@@ -175,6 +182,8 @@ export async function getStaticProps() {
     return {
       props: {
         services: [],
+        locale,
+        globalSettings: {},
       },
     };
   }

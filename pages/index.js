@@ -2,8 +2,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { client } from '../lib/sanity';
 import { urlFor } from '../lib/sanity';
+import { t } from '../lib/i18n';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+
 
 function ClientLogo({ c }) {
   const inner = c.logo?.asset?.url
@@ -41,7 +43,7 @@ function ClientsSection({ clients }) {
   );
 }
 
-export default function Home({ globalSettings, homePage }) {
+export default function Home({ globalSettings, homePage, locale }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
@@ -59,10 +61,10 @@ export default function Home({ globalSettings, homePage }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  {homePage?.heroHeading || 'Rådgivning for fremtidens utfordringer'}
+                  {t(homePage, 'heroHeading', locale) || 'Rådgivning for fremtidens utfordringer'}
                 </h1>
                 <p className="text-xl text-gray-600 mb-8">
-                  {homePage?.heroSubheading || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.'}
+                  {t(homePage, 'heroSubheading', locale) || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.'}
                 </p>
                 <Link href="/kontakt" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition duration-300">
                   Kontakt oss
@@ -88,10 +90,10 @@ export default function Home({ globalSettings, homePage }) {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                {homePage?.introHeading}
+                {t(homePage, 'introHeading', locale)}
               </h2>
               <p className="text-lg text-gray-600">
-                {homePage?.introText}
+                {t(homePage, 'introText', locale)}
               </p>
             </div>
           </div>
@@ -120,13 +122,13 @@ export default function Home({ globalSettings, homePage }) {
                           )}
                         </div>
                         <h3 className="text-xl font-bold text-gray-900 mb-3">
-                          {service.title}
+                          {t(service, 'title', locale)}
                         </h3>
                         <p className="text-gray-600 mb-4 flex-grow">
-                          {service.shortDescription}
+                          {t(service, 'shortDescription', locale)}
                         </p>
                         <span className="text-blue-600 hover:text-blue-800 font-medium mt-auto">
-                          Les mer →
+                          {locale === 'en' ? 'Read more →' : 'Les mer →'}
                         </span>
                       </div>
                   </Link>
@@ -144,23 +146,24 @@ export default function Home({ globalSettings, homePage }) {
           <div className="container mx-auto px-4">
             <div className="bg-blue-600 rounded-lg p-8 md:p-12 text-center">
               <h2 className="text-3xl font-bold text-white mb-4">
-                {homePage?.ctaHeading}
+                {t(homePage, 'ctaHeading', locale)}
               </h2>
               <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-                {homePage?.ctaText}
+                {t(homePage, 'ctaText', locale)}
               </p>
               <Link href="/kontakt" className="inline-block bg-white text-blue-600 hover:bg-blue-50 font-medium py-3 px-6 rounded-md transition duration-300">
-                {homePage?.ctaButtonText || 'Kontakt oss'}
+                {t(homePage, 'ctaButtonText', locale) || (locale === 'en' ? 'Contact us' : 'Kontakt oss')}
               </Link>
             </div>
           </div>
         </section>
       </main>
+      <Footer settings={globalSettings} />
     </div>
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
   try {
     const globalSettingsQuery = `*[_type == "globalSettings"][0]`;
 
@@ -177,9 +180,9 @@ export async function getStaticProps() {
       introHeading,
       introText,
       featuredServices[]->{
-        title,
+        title, title_en,
         slug,
-        shortDescription,
+        shortDescription, shortDescription_en,
         image {
           asset->{
             _id,
@@ -187,9 +190,12 @@ export async function getStaticProps() {
           }
         }
       },
-      ctaHeading,
-      ctaText,
-      ctaButtonText,
+      ctaHeading, ctaHeading_en,
+      ctaText, ctaText_en,
+      ctaButtonText, ctaButtonText_en,
+      heroHeading_en, heroSubheading_en,
+      introHeading_en, introText_en,
+      title_en,
       featuredClients[]->{
         _id,
         name,
@@ -210,6 +216,7 @@ export async function getStaticProps() {
       props: {
         globalSettings,
         homePage,
+        locale,
       },
       revalidate: 60,
     };
@@ -219,6 +226,7 @@ export async function getStaticProps() {
       props: {
         globalSettings: {},
         homePage: {},
+        locale,
       },
     };
   }
