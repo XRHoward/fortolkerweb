@@ -54,7 +54,7 @@ export default function Home({ globalSettings, homePage, locale }) {
 
       <Header />
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         {/* Hero Section */}
         <section className="bg-gray-50 py-16 md:py-24">
           <div className="container mx-auto px-4">
@@ -75,7 +75,7 @@ export default function Home({ globalSettings, homePage, locale }) {
                   <img
                     src={homePage.heroImage.asset.url}
                     alt={homePage.heroHeading || 'Illustrasjonsbilde'}
-                    className="w-full h-64 md:h-80 object-cover rounded-lg"
+                    className="w-full h-auto rounded-lg"
                   />
                 ) : (
                   <div className="bg-gray-200 h-64 md:h-80 rounded-lg"></div>
