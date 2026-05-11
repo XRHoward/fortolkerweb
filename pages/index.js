@@ -67,7 +67,7 @@ export default function Home({ globalSettings, homePage, locale }) {
                   {t(homePage, 'heroSubheading', locale) || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.'}
                 </p>
                 <Link href="/kontakt" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition duration-300">
-                  Kontakt oss
+                  {locale === 'en' ? 'Get in touch' : 'Kontakt oss'}
                 </Link>
               </div>
               <div className="order-first md:order-last">
