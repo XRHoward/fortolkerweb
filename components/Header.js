@@ -18,7 +18,10 @@ function LanguageSwitcher() {
       className="text-sm font-semibold text-gray-600 hover:text-blue-600 border border-gray-300 hover:border-blue-600 rounded px-2 py-1 transition-colors duration-200"
       aria-label="Switch language"
     >
-      {locale === 'no' ? 'EN' : 'NO'}
+      {locale === 'no'
+        ? <><span className="fi fi-gb mr-1"></span>EN</>
+        : <><span className="fi fi-no mr-1"></span>NO</>
+      }
     </button>
   );
 }

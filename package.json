@@ -13,6 +13,7 @@
     "@sanity/image-url": "^1.0.2",
     "autoprefixer": "^10.4.16",
     "date-fns": "^4.1.0",
+    "flag-icons": "^7.5.0",
     "next": "^14.1.4",
     "next-sanity": "^7.0.5",
     "nodemailer": "^6.9.9",
