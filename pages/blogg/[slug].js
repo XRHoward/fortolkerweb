@@ -228,12 +228,11 @@ export default function BloggInnlegg({ post, relatedPosts }) {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {relatedPosts.map((relatedPost) => (
-                  <Link
-                    key={relatedPost._id}
-                    href={`/blogg/${relatedPost.slug.current}`}
-                    className="group"
-                  >
-                    <article className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+                  <article key={relatedPost._id} className="group">
+                    <Link
+                      href={`/blogg/${relatedPost.slug.current}`}
+                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 block"
+                    >
                       {relatedPost.mainImage && (
                         <div className="relative h-48 overflow-hidden">
                           <img
@@ -253,8 +252,8 @@ export default function BloggInnlegg({ post, relatedPosts }) {
                           </p>
                         )}
                       </div>
-                    </article>
-                  </Link>
+                    </Link>
+                  </article>
                 ))}
               </div>
             </div>

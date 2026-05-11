@@ -6,9 +6,9 @@ import { urlFor } from '../../lib/sanity';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { format } from 'date-fns';
-import { nb } from 'date-fns/locale';
+import { nb, enGB } from 'date-fns/locale';
 
-export default function BloggOversikt({ posts, categories }) {
+export default function BloggOversikt({ posts, categories, locale }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const filteredPosts = selectedCategory
@@ -20,8 +20,8 @@ export default function BloggOversikt({ posts, categories }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>Blogg - Fortolker AS</title>
-        <meta name="description" content="Les våre siste artikler om innovasjon, teknologi og ledelse" />
+        <title>{locale === 'en' ? 'Blog - Fortolker AS' : 'Blogg - Fortolker AS'}</title>
+        <meta name="description" content={locale === 'en' ? 'Read our latest articles on innovation, technology and management' : 'Les våre siste artikler om innovasjon, teknologi og ledelse'} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -32,10 +32,10 @@ export default function BloggOversikt({ posts, categories }) {
         <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Blogg
+              {locale === 'en' ? 'Blog' : 'Blogg'}
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl">
-              Innsikt og perspektiver på innovasjon, teknologi og ledelse
+              {locale === 'en' ? 'Insights and perspectives on innovation, technology and management' : 'Innsikt og perspektiver på innovasjon, teknologi og ledelse'}
             </p>
           </div>
         </section>
@@ -53,7 +53,7 @@ export default function BloggOversikt({ posts, categories }) {
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  Alle
+                  {locale === 'en' ? 'All' : 'Alle'}
                 </button>
                 {categories.map((category) => (
                   <button
@@ -129,7 +129,7 @@ export default function BloggOversikt({ posts, categories }) {
                           )}
                           {post.publishedAt && (
                             <span>
-                              {format(new Date(post.publishedAt), 'd. MMMM yyyy', { locale: nb })}
+                              {format(new Date(post.publishedAt), locale === 'en' ? 'MMMM d, yyyy' : 'd. MMMM yyyy', { locale: locale === 'en' ? enGB : nb })}
                             </span>
                           )}
                         </div>
@@ -141,8 +141,8 @@ export default function BloggOversikt({ posts, categories }) {
             ) : (
               <div className="text-center py-12">
                 <p className="text-gray-600 text-lg">
-                  Ingen blogginnlegg funnet
-                  {selectedCategory && ' i denne kategorien'}.
+                  {locale === 'en' ? 'No blog posts found' : 'Ingen blogginnlegg funnet'}
+                  {selectedCategory && (locale === 'en' ? ' in this category' : ' i denne kategorien')}.
                 </p>
               </div>
             )}
@@ -155,7 +155,7 @@ export default function BloggOversikt({ posts, categories }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
   try {
     const postsQuery = `*[_type == "post"] | order(publishedAt desc) {
       _id,
@@ -196,19 +196,13 @@ export async function getStaticProps() {
     const categories = await client.fetch(categoriesQuery);
 
     return {
-      props: {
-        posts,
-        categories
-      },
-      revalidate: 60
+      props: { posts, categories, locale },
+      revalidate: 60,
     };
   } catch (error) {
     console.error('Feil ved henting av blogginnlegg:', error);
     return {
-      props: {
-        posts: [],
-        categories: []
-      }
+      props: { posts: [], categories: [], locale },
     };
   }
 }

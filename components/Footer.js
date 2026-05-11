@@ -1,6 +1,31 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+const strings = {
+  no: {
+    tagline: 'Rådgiver innen teknologi, innovasjon og ledelse',
+    linksHeading: 'Lenker',
+    home: 'Hjem', about: 'Om oss', services: 'Tjenester', contact: 'Kontakt',
+    servicesHeading: 'Tjenester',
+    service1: 'Teknologirådgivning', service2: 'Innovasjonsrådgivning', service3: 'Innleid ledelse',
+    contactHeading: 'Kontakt',
+    rights: 'Alle rettigheter forbeholdt.',
+  },
+  en: {
+    tagline: 'Consulting within technology, innovation and management',
+    linksHeading: 'Links',
+    home: 'Home', about: 'About us', services: 'Services', contact: 'Contact',
+    servicesHeading: 'Services',
+    service1: 'Technology consulting', service2: 'Innovation consulting', service3: 'Interim management',
+    contactHeading: 'Contact',
+    rights: 'All rights reserved.',
+  },
+};
 
 export default function Footer({ settings }) {
+  const { locale } = useRouter();
+  const s = strings[locale] ?? strings.no;
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">
@@ -8,66 +33,34 @@ export default function Footer({ settings }) {
           {/* Company Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Fortolker AS</h3>
-            <p className="text-gray-400">
-              Rådgiver innen teknologi, innovasjon og ledelse
-            </p>
-            <p className="text-gray-400 mt-2">
-              Org.nr: 835 770 052
-            </p>
+            <p className="text-gray-400">{s.tagline}</p>
+            <p className="text-gray-400 mt-2">Org.nr: 835 770 052</p>
           </div>
 
           {/* Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Lenker</h3>
+            <h3 className="text-lg font-semibold mb-4">{s.linksHeading}</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-gray-400 hover:text-white">
-                  Hjem
-                </Link>
-              </li>
-              <li>
-                <Link href="/om-oss" className="text-gray-400 hover:text-white">
-                  Om oss
-                </Link>
-              </li>
-              <li>
-                <Link href="/tjenester" className="text-gray-400 hover:text-white">
-                  Tjenester
-                </Link>
-              </li>
-              <li>
-                <Link href="/kontakt" className="text-gray-400 hover:text-white">
-                  Kontakt
-                </Link>
-              </li>
+              <li><Link href="/" className="text-gray-400 hover:text-white">{s.home}</Link></li>
+              <li><Link href="/om-oss" className="text-gray-400 hover:text-white">{s.about}</Link></li>
+              <li><Link href="/tjenester" className="text-gray-400 hover:text-white">{s.services}</Link></li>
+              <li><Link href="/kontakt" className="text-gray-400 hover:text-white">{s.contact}</Link></li>
             </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Tjenester</h3>
+            <h3 className="text-lg font-semibold mb-4">{s.servicesHeading}</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/tjenester" className="text-gray-400 hover:text-white">
-                  Teknologirådgivning
-                </Link>
-              </li>
-              <li>
-                <Link href="/tjenester" className="text-gray-400 hover:text-white">
-                  Innovasjonsrådgivning
-                </Link>
-              </li>
-              <li>
-                <Link href="/tjenester" className="text-gray-400 hover:text-white">
-                  Innleid ledelse
-                </Link>
-              </li>
+              <li><Link href="/tjenester" className="text-gray-400 hover:text-white">{s.service1}</Link></li>
+              <li><Link href="/tjenester" className="text-gray-400 hover:text-white">{s.service2}</Link></li>
+              <li><Link href="/tjenester" className="text-gray-400 hover:text-white">{s.service3}</Link></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Kontakt</h3>
+            <h3 className="text-lg font-semibold mb-4">{s.contactHeading}</h3>
             <address className="text-gray-400 not-italic space-y-1">
               {settings?.contactPhone && <p>Tlf: {settings.contactPhone}</p>}
               {settings?.contactEmail && <p>E-post: {settings.contactEmail}</p>}
@@ -86,7 +79,7 @@ export default function Footer({ settings }) {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          © {new Date().getFullYear()} Fortolker AS. Alle rettigheter forbeholdt.
+          © {new Date().getFullYear()} Fortolker AS. {s.rights}
         </div>
       </div>
     </footer>

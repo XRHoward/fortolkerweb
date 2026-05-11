@@ -103,7 +103,7 @@ export default function Home({ globalSettings, homePage, locale }) {
         {homePage?.featuredServices?.length > 0 && (
           <section className="bg-gray-50 py-16">
             <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Våre tjenester</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">{locale === 'en' ? 'Our services' : 'Våre tjenester'}</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {homePage.featuredServices.map((service) => (
                   <Link href={`/tjenester#${service.slug.current}`} key={service.slug.current} className="block bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 h-full min-h-[360px]">
