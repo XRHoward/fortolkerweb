@@ -89,7 +89,7 @@ export default function Footer({ settings }) {
             <img
               src="/digital-innlandet-logo.svg"
               alt="Digital Innlandet"
-              className="h-20 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+              className="h-28 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
             />
           </a>
         </div>
