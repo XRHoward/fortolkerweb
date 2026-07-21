@@ -78,8 +78,23 @@ export default function Footer({ settings }) {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          © {new Date().getFullYear()} Fortolker AS. {s.rights}
+        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col items-center gap-6 text-gray-400 sm:flex-row sm:justify-between">
+          <span>© {new Date().getFullYear()} Fortolker AS. {s.rights}</span>
+          <div className="flex flex-col items-center gap-2 sm:items-end">
+            <span className="text-sm text-gray-500">Stolt medlem av:</span>
+            <a
+              href="https://www.digitalinnlandet.no"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Digital Innlandet"
+            >
+              <img
+                src="/digital-innlandet-logo.svg"
+                alt="Digital Innlandet"
+                className="h-10 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
