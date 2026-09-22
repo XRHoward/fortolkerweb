@@ -16,7 +16,7 @@ export default function OmOss({ aboutPage, locale, globalSettings }) {
 
       <Header />
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         {/* Hero Section */}
         <section className="bg-gray-50 py-16 md:py-24">
           <div className="container mx-auto px-4">
