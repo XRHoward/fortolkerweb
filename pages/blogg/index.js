@@ -30,14 +30,16 @@ export default function BloggOversikt({ posts, categories, locale }) {
 
       <main className="flex-grow pt-20">
         {/* Hero Section */}
-        <section className="bg-gray-50 py-16">
+        <section className="bg-gray-50 py-16 md:py-24">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              {locale === 'en' ? 'Blog' : 'Blogg'}
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl">
-              {locale === 'en' ? 'Insights and perspectives on innovation, technology and management' : 'Innsikt og perspektiver på innovasjon, teknologi og ledelse'}
-            </p>
+            <div className="max-w-3xl mx-auto text-center">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                {locale === 'en' ? 'Blog' : 'Blogg'}
+              </h1>
+              <p className="text-xl text-gray-600">
+                {locale === 'en' ? 'Insights and perspectives on innovation, technology and management' : 'Innsikt og perspektiver på innovasjon, teknologi og ledelse'}
+              </p>
+            </div>
           </div>
         </section>
 
