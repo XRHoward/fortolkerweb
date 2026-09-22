@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import { client } from '../lib/sanity';
 import { urlFor } from '../lib/sanity';
 import { t } from '../lib/i18n';
@@ -44,6 +45,19 @@ function ClientsSection({ clients }) {
 }
 
 export default function Home({ globalSettings, homePage, locale }) {
+  const heroHeading = t(homePage, 'heroHeading', locale) || 'Rådgivning for fremtidens utfordringer';
+  const heroSubheading = t(homePage, 'heroSubheading', locale) || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.';
+
+  // Bruk hotspot satt i Sanity Studio som fokuspunkt for hero-bildet, slik at
+  // riktig del av bildet (f.eks. ansiktet på et portrett) blir synlig når
+  // bildet beskjæres på ulike skjermstørrelser. Uten hotspot: anta at
+  // motivet står i venstre tredjedel, litt over midten (vanlig for
+  // portrettbilder), i stedet for å midtstille beskjæringen.
+  const hotspot = homePage?.heroImage?.hotspot;
+  const heroImagePosition = hotspot
+    ? `${(hotspot.x * 100).toFixed(1)}% ${(hotspot.y * 100).toFixed(1)}%`
+    : '18% 20%';
+
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
@@ -54,32 +68,57 @@ export default function Home({ globalSettings, homePage, locale }) {
 
       <Header />
 
-      <main className="flex-grow pt-20">
+      <main className="flex-grow">
         {/* Hero Section */}
-        <section className="bg-gray-50 py-16 md:py-24">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  {t(homePage, 'heroHeading', locale) || 'Rådgivning for fremtidens utfordringer'}
+        <section className="relative w-full overflow-hidden h-[560px] sm:h-[620px] md:h-[680px] xl:h-[760px] 2xl:h-[860px]">
+          {homePage?.heroImage?.asset?.url ? (
+            <Image
+              src={urlFor(homePage.heroImage).width(1600).quality(80).url()}
+              alt={heroHeading}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+              style={{ objectPosition: heroImagePosition }}
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gray-200" />
+          )}
+
+          {/* Skygge-overlegg: bunn-tungt på mobil (teksten ligger nederst),
+              venstre-tungt fra md og opp (teksten ligger til venstre) */}
+          <div
+            className="absolute inset-0 md:hidden"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(9,13,26,0.05) 0%, rgba(9,13,26,0.2) 45%, rgba(9,13,26,0.82) 85%, rgba(9,13,26,0.93) 100%)',
+            }}
+          />
+          <div
+            className="absolute inset-0 hidden md:block"
+            style={{
+              background:
+                'linear-gradient(100deg, rgba(9,13,26,0.88) 0%, rgba(9,13,26,0.62) 34%, rgba(9,13,26,0.18) 60%, rgba(9,13,26,0) 80%)',
+            }}
+          />
+
+          <div className="relative h-full container mx-auto px-4">
+            <div className="flex h-full items-end md:items-center pb-10 md:pb-0">
+              <div className="max-w-xl">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 md:mb-6 leading-tight tracking-tight">
+                  {heroHeading}
                 </h1>
-                <p className="text-xl text-gray-600 mb-8">
-                  {t(homePage, 'heroSubheading', locale) || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.'}
+                <p className="text-base md:text-xl text-white/90 mb-6 md:mb-8 max-w-md md:max-w-lg">
+                  {heroSubheading}
                 </p>
-                <Link href="/kontakt" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition duration-300">
-                  {locale === 'en' ? 'Get in touch' : 'Kontakt oss'}
-                </Link>
-              </div>
-              <div className="order-first md:order-last">
-                {homePage?.heroImage?.asset?.url ? (
-                  <img
-                    src={homePage.heroImage.asset.url}
-                    alt={homePage.heroHeading || 'Illustrasjonsbilde'}
-                    className="w-full h-auto rounded-lg"
-                  />
-                ) : (
-                  <div className="bg-gray-200 h-64 md:h-80 rounded-lg"></div>
-                )}
+                <div className="flex flex-wrap justify-center gap-4 md:justify-start">
+                  <Link href="/kontakt" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition duration-300">
+                    {locale === 'en' ? 'Get in touch' : 'Kontakt oss'}
+                  </Link>
+                  <Link href="/tjenester" className="inline-block bg-white/10 hover:bg-white/20 border border-white/40 text-white font-medium py-3 px-6 rounded-md transition duration-300">
+                    {locale === 'en' ? 'Our services' : 'Våre tjenester'}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -175,7 +214,8 @@ export async function getStaticProps({ locale }) {
         asset->{
           _id,
           url
-        }
+        },
+        hotspot
       },
       introHeading,
       introText,

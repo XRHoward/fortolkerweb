@@ -2,11 +2,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { client } from '../../lib/sanity';
 import { urlFor } from '../../lib/sanity';
+import { t } from '../../lib/i18n';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { PortableText } from '@portabletext/react';
 import { format } from 'date-fns';
-import { nb } from 'date-fns/locale';
+import { nb, enGB } from 'date-fns/locale';
 
 const portableTextComponents = {
   types: {
@@ -75,7 +76,9 @@ const portableTextComponents = {
   },
 };
 
-export default function BloggInnlegg({ post, relatedPosts }) {
+export default function BloggInnlegg({ post, relatedPosts, locale }) {
+  const dateLocale = locale === 'en' ? enGB : nb;
+
   if (!post) {
     return (
       <div className="min-h-screen flex flex-col">
@@ -83,10 +86,10 @@ export default function BloggInnlegg({ post, relatedPosts }) {
         <main className="flex-grow pt-20 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Innlegget ble ikke funnet
+              {locale === 'en' ? 'Post not found' : 'Innlegget ble ikke funnet'}
             </h1>
             <Link href="/blogg" className="text-blue-600 hover:text-blue-800">
-              Tilbake til bloggen
+              {locale === 'en' ? 'Back to the blog' : 'Tilbake til bloggen'}
             </Link>
           </div>
         </main>
@@ -95,13 +98,19 @@ export default function BloggInnlegg({ post, relatedPosts }) {
     );
   }
 
+  const title = t(post, 'title', locale);
+  const excerpt = t(post, 'excerpt', locale);
+  const body = t(post, 'body', locale);
+  const seo = t(post, 'seo', locale);
+  const imageAlt = t(post.mainImage, 'alt', locale) || title;
+
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>{post.seo?.metaTitle || post.title} - Fortolker AS</title>
+        <title>{seo?.metaTitle || title} - Fortolker AS</title>
         <meta
           name="description"
-          content={post.seo?.metaDescription || post.excerpt || ''}
+          content={seo?.metaDescription || excerpt || ''}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -114,14 +123,14 @@ export default function BloggInnlegg({ post, relatedPosts }) {
           <div className="container mx-auto px-4">
             <nav className="text-sm text-gray-600">
               <Link href="/" className="hover:text-blue-600">
-                Hjem
+                {locale === 'en' ? 'Home' : 'Hjem'}
               </Link>
               <span className="mx-2">/</span>
               <Link href="/blogg" className="hover:text-blue-600">
-                Blogg
+                {locale === 'en' ? 'Blog' : 'Blogg'}
               </Link>
               <span className="mx-2">/</span>
-              <span className="text-gray-900">{post.title}</span>
+              <span className="text-gray-900">{title}</span>
             </nav>
           </div>
         </div>
@@ -139,7 +148,7 @@ export default function BloggInnlegg({ post, relatedPosts }) {
                       href={`/blogg?kategori=${category.slug.current}`}
                       className="text-sm font-medium px-3 py-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
                     >
-                      {category.title}
+                      {t(category, 'title', locale)}
                     </Link>
                   ))}
                 </div>
@@ -147,7 +156,7 @@ export default function BloggInnlegg({ post, relatedPosts }) {
 
               {/* Title */}
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                {post.title}
+                {title}
               </h1>
 
               {/* Meta Info */}
@@ -165,7 +174,7 @@ export default function BloggInnlegg({ post, relatedPosts }) {
                       <p className="font-medium text-gray-900">{post.author.name}</p>
                       {post.publishedAt && (
                         <p className="text-sm">
-                          {format(new Date(post.publishedAt), 'd. MMMM yyyy', { locale: nb })}
+                          {format(new Date(post.publishedAt), locale === 'en' ? 'MMMM d, yyyy' : 'd. MMMM yyyy', { locale: dateLocale })}
                         </p>
                       )}
                     </div>
@@ -178,7 +187,7 @@ export default function BloggInnlegg({ post, relatedPosts }) {
                 <div className="mb-8">
                   <img
                     src={urlFor(post.mainImage).width(1200).url()}
-                    alt={post.mainImage.alt || post.title}
+                    alt={imageAlt}
                     className="w-full rounded-lg shadow-lg"
                   />
                 </div>
@@ -186,12 +195,12 @@ export default function BloggInnlegg({ post, relatedPosts }) {
 
               {/* Article Body */}
               <div className="prose prose-lg max-w-none">
-                {post.body && <PortableText value={post.body} components={portableTextComponents} />}
+                {body && <PortableText value={body} components={portableTextComponents} />}
               </div>
 
               {/* Share Section */}
               <div className="mt-12 pt-8 border-t">
-                <p className="text-gray-600 mb-4">Del denne artikkelen:</p>
+                <p className="text-gray-600 mb-4">{locale === 'en' ? 'Share this article:' : 'Del denne artikkelen:'}</p>
                 <div className="flex gap-4">
                   <a
                     href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
@@ -206,7 +215,7 @@ export default function BloggInnlegg({ post, relatedPosts }) {
                   <a
                     href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
                       typeof window !== 'undefined' ? window.location.href : ''
-                    )}&text=${encodeURIComponent(post.title)}`}
+                    )}&text=${encodeURIComponent(title)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800"
@@ -224,37 +233,42 @@ export default function BloggInnlegg({ post, relatedPosts }) {
           <section className="bg-gray-50 py-16">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl font-bold text-gray-900 mb-8">
-                Relaterte artikler
+                {locale === 'en' ? 'Related articles' : 'Relaterte artikler'}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {relatedPosts.map((relatedPost) => (
-                  <article key={relatedPost._id} className="group">
-                    <Link
-                      href={`/blogg/${relatedPost.slug.current}`}
-                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 block"
-                    >
-                      {relatedPost.mainImage && (
-                        <div className="relative h-48 overflow-hidden">
-                          <img
-                            src={urlFor(relatedPost.mainImage).width(400).height(300).url()}
-                            alt={relatedPost.mainImage.alt || relatedPost.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                        </div>
-                      )}
-                      <div className="p-6">
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                          {relatedPost.title}
-                        </h3>
-                        {relatedPost.excerpt && (
-                          <p className="text-gray-600 text-sm line-clamp-2">
-                            {relatedPost.excerpt}
-                          </p>
+                {relatedPosts.map((relatedPost) => {
+                  const relatedTitle = t(relatedPost, 'title', locale);
+                  const relatedExcerpt = t(relatedPost, 'excerpt', locale);
+                  const relatedImageAlt = t(relatedPost.mainImage, 'alt', locale) || relatedTitle;
+                  return (
+                    <article key={relatedPost._id} className="group">
+                      <Link
+                        href={`/blogg/${relatedPost.slug.current}`}
+                        className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 block"
+                      >
+                        {relatedPost.mainImage && (
+                          <div className="relative h-48 overflow-hidden">
+                            <img
+                              src={urlFor(relatedPost.mainImage).width(400).height(300).url()}
+                              alt={relatedImageAlt}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                          </div>
                         )}
-                      </div>
-                    </Link>
-                  </article>
-                ))}
+                        <div className="p-6">
+                          <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                            {relatedTitle}
+                          </h3>
+                          {relatedExcerpt && (
+                            <p className="text-gray-600 text-sm line-clamp-2">
+                              {relatedExcerpt}
+                            </p>
+                          )}
+                        </div>
+                      </Link>
+                    </article>
+                  );
+                })}
               </div>
             </div>
           </section>
@@ -279,7 +293,7 @@ export default function BloggInnlegg({ post, relatedPosts }) {
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-            Tilbake til bloggen
+            {locale === 'en' ? 'Back to the blog' : 'Tilbake til bloggen'}
           </Link>
         </div>
       </main>
@@ -303,20 +317,20 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, locale }) {
   try {
     const postQuery = `*[_type == "post" && slug.current == $slug][0]{
       _id,
-      title,
+      title, title_en,
       slug,
       publishedAt,
-      excerpt,
+      excerpt, excerpt_en,
       mainImage {
         asset->{
           _id,
           url
         },
-        alt
+        alt, alt_en
       },
       author->{
         name,
@@ -329,24 +343,24 @@ export async function getStaticProps({ params }) {
       },
       categories[]->{
         _id,
-        title,
+        title, title_en,
         slug
       },
-      body,
-      seo
+      body, body_en,
+      seo, seo_en
     }`;
 
     const relatedPostsQuery = `*[_type == "post" && slug.current != $slug] | order(publishedAt desc) [0...3]{
       _id,
-      title,
+      title, title_en,
       slug,
-      excerpt,
+      excerpt, excerpt_en,
       mainImage {
         asset->{
           _id,
           url
         },
-        alt
+        alt, alt_en
       }
     }`;
 
@@ -363,6 +377,7 @@ export async function getStaticProps({ params }) {
       props: {
         post,
         relatedPosts,
+        locale,
       },
       revalidate: 60,
     };
