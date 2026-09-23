@@ -59,7 +59,7 @@ export default function Header() {
   }, []);
 
   const bgClass = isHome
-    ? (scrolled ? 'bg-slate-950/35' : 'bg-transparent')
+    ? (scrolled ? 'bg-slate-950/55' : 'bg-transparent')
     : (scrolled ? 'bg-slate-950/55' : 'bg-slate-950/30');
   const blurClass = isHome ? 'backdrop-blur-none' : 'backdrop-blur-lg';
 
