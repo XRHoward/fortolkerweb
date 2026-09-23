@@ -80,18 +80,32 @@ export default function Footer({ settings }) {
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col items-center gap-6 text-gray-400 sm:flex-row sm:justify-between">
           <span>© {new Date().getFullYear()} Fortolker AS. {s.rights}</span>
-          <a
-            href="https://www.digitalinnlandet.no"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Digital Innlandet"
-          >
-            <img
-              src="/digital-innlandet-logo.svg"
-              alt="Digital Innlandet"
-              className="h-28 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
-            />
-          </a>
+          <div className="flex items-center gap-6">
+            <a
+              href="https://www.digitalinnlandet.no"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Digital Innlandet"
+            >
+              <img
+                src="/digital-innlandet-logo.svg"
+                alt="Digital Innlandet"
+                className="h-28 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </a>
+            <a
+              href="https://xn--hamarregionennringsforum-jdc.no/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Hamarregionen Næringsforum"
+            >
+              <img
+                src="/hamarregionen-naringsforum-logo.svg"
+                alt="Hamarregionen Næringsforum"
+                className="h-10 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
