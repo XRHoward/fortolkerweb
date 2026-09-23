@@ -59,7 +59,7 @@ export default function Header() {
   }, []);
 
   const bgClass = isHome
-    ? (scrolled ? 'bg-slate-950/80' : 'bg-slate-950/5')
+    ? (scrolled ? 'bg-slate-950/35' : 'bg-transparent')
     : (scrolled ? 'bg-slate-950/85' : 'bg-slate-950/60');
 
   return (
