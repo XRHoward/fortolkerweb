@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -15,7 +15,7 @@ function LanguageSwitcher() {
   return (
     <button
       onClick={toggle}
-      className="text-sm font-semibold text-gray-600 hover:text-blue-600 border border-gray-300 hover:border-blue-600 rounded px-2 py-1 transition-colors duration-200"
+      className="text-sm font-semibold text-white/90 hover:text-white border border-white/30 hover:border-white/60 rounded px-2 py-1 transition-colors duration-200"
       aria-label="Switch language"
     >
       {locale === 'no'
@@ -45,12 +45,27 @@ const navLinks = {
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { locale } = useRouter();
-  const logoUrl = 'https://cdn.sanity.io/media-libraries/ml6HycARgLFo/images/415a542549643184cf2e8833c028143348e4e0a9-750x417.webp';
+  const [scrolled, setScrolled] = useState(false);
+  const { locale, pathname } = useRouter();
+  const isHome = pathname === '/';
+  const logoUrl = 'https://cdn.sanity.io/images/7izj8dsr/production/5cdcc1ff1954c4eaa65ae3f9fbf257ca62aeaae1-750x417.png';
   const links = navLinks[locale] ?? navLinks.no;
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const bgClass = isHome
+    ? (scrolled ? 'bg-slate-950/80' : 'bg-slate-950/5')
+    : (scrolled ? 'bg-slate-950/85' : 'bg-slate-950/60');
+
   return (
-    <header className="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-colors duration-300 backdrop-blur-lg ${bgClass}`}
+    >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center">
@@ -60,13 +75,14 @@ export default function Header() {
               width={120}
               height={60}
               priority
+              unoptimized
             />
           </Link>
 
           {/* Desktop-meny */}
           <nav className="hidden md:flex items-center gap-10 flex-1 justify-center">
             {links.map(({ href, label }) => (
-              <Link key={href} href={href} className="text-gray-600 hover:text-blue-600">
+              <Link key={href} href={href} className="text-white/90 hover:text-blue-400 transition-colors duration-200">
                 {label}
               </Link>
             ))}
@@ -80,7 +96,7 @@ export default function Header() {
           <div className="md:hidden flex items-center gap-3">
             <LanguageSwitcher />
             <button
-              className="text-gray-600"
+              className="text-white"
               aria-label="Åpne meny"
               onClick={() => setMenuOpen(!menuOpen)}
             >
@@ -97,7 +113,7 @@ export default function Header() {
         {menuOpen && (
           <nav className="md:hidden flex flex-col gap-4 pb-4">
             {links.map(({ href, label }) => (
-              <Link key={href} href={href} className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>
+              <Link key={href} href={href} className="text-white/90 hover:text-blue-400 transition-colors duration-200" onClick={() => setMenuOpen(false)}>
                 {label}
               </Link>
             ))}
