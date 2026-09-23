@@ -64,14 +64,17 @@ export default function Header() {
           </Link>
 
           {/* Desktop-meny */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center gap-10 flex-1 justify-center">
             {links.map(({ href, label }) => (
               <Link key={href} href={href} className="text-gray-600 hover:text-blue-600">
                 {label}
               </Link>
             ))}
-            <LanguageSwitcher />
           </nav>
+
+          <div className="hidden md:flex items-center">
+            <LanguageSwitcher />
+          </div>
 
           {/* Hamburger-knapp */}
           <div className="md:hidden flex items-center gap-3">
