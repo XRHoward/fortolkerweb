@@ -63,7 +63,14 @@ export default function Footer({ settings }) {
             <h3 className="text-lg font-semibold mb-4">{s.contactHeading}</h3>
             <address className="text-gray-400 not-italic space-y-1">
               {settings?.contactPhone && <p>Tlf: {settings.contactPhone}</p>}
-              {settings?.contactEmail && <p>E-post: {settings.contactEmail}</p>}
+              {settings?.contactEmail && (
+                <p>
+                  E-post:{' '}
+                  <a href={`mailto:${settings.contactEmail}?subject=${encodeURIComponent('Hei!')}`} className="hover:text-white">
+                    {settings.contactEmail}
+                  </a>
+                </p>
+              )}
               {settings?.address && (
                 <p>
                   {settings.address.split('\n').map((line, i) => (
