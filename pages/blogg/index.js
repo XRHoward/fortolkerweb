@@ -22,7 +22,7 @@ export default function BloggOversikt({ posts, categories, locale }) {
     <div className="min-h-screen flex flex-col">
       <Head>
         <title>{locale === 'en' ? 'Blog - Fortolker AS' : 'Blogg - Fortolker AS'}</title>
-        <meta name="description" content={locale === 'en' ? 'Read our latest articles on innovation, technology and management' : 'Les våre siste artikler om innovasjon, teknologi og ledelse'} />
+        <meta name="description" content={locale === 'en' ? 'Read our latest articles on innovation, technology and communication' : 'Les våre siste artikler om innovasjon, teknologi og kommunikasjon'} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -37,7 +37,7 @@ export default function BloggOversikt({ posts, categories, locale }) {
                 {locale === 'en' ? 'Blog' : 'Blogg'}
               </h1>
               <p className="text-xl text-gray-600">
-                {locale === 'en' ? 'Insights and perspectives on innovation, technology and management' : 'Innsikt og perspektiver på innovasjon, teknologi og ledelse'}
+                {locale === 'en' ? 'Insights and perspectives on innovation, technology and communication' : 'Innsikt og perspektiver på innovasjon, teknologi og kommunikasjon'}
               </p>
             </div>
           </div>

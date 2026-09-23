@@ -11,7 +11,7 @@ export default function Tjenester({ services, locale, globalSettings }) {
     <div className="min-h-screen flex flex-col">
       <Head>
          <title>Tjenester - Fortolker AS</title>
-        <meta name="description" content="Utforsk våre rådgivningstjenester innen teknologi, innovasjon og ledelse." />
+        <meta name="description" content="Utforsk våre rådgivningstjenester innen teknologi, innovasjon og kommunikasjon." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -27,8 +27,8 @@ export default function Tjenester({ services, locale, globalSettings }) {
               </h1>
               <p className="text-xl text-gray-600 mb-8">
                 {locale === 'en'
-                  ? 'We offer specialised consulting within technology, innovation and management.'
-                  : 'Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og ledelse for å hjelpe din bedrift med å møte fremtidens utfordringer.'}
+                  ? 'We offer specialised consulting within technology, innovation and communication.'
+                  : 'Vi tilbyr spesialisert rådgivning innen teknologi, innovasjon og kommunikasjon for å hjelpe din bedrift med å møte fremtidens utfordringer.'}
               </p>
                           {/* Internmeny */}
               <nav className="flex flex-wrap justify-center gap-4 mt-6">
