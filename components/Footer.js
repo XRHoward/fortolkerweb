@@ -98,6 +98,18 @@ export default function Footer({ settings }) {
           <span>© {new Date().getFullYear()} Fortolker AS. {s.rights}</span>
           <div className="flex items-center gap-6">
             <a
+              href="https://parkhamar.no/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="PARK gründer- og næringshus"
+            >
+              <img
+                src="/park-logo.png"
+                alt="PARK gründer- og næringshus"
+                className="h-24 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </a>
+            <a
               href="https://www.digitalinnlandet.no"
               target="_blank"
               rel="noopener noreferrer"
