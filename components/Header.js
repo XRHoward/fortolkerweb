@@ -60,11 +60,12 @@ export default function Header() {
 
   const bgClass = isHome
     ? (scrolled ? 'bg-slate-950/35' : 'bg-transparent')
-    : (scrolled ? 'bg-slate-950/85' : 'bg-slate-950/60');
+    : (scrolled ? 'bg-slate-950/70' : 'bg-slate-950/45');
+  const blurClass = isHome ? 'backdrop-blur-sm' : 'backdrop-blur-lg';
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-colors duration-300 backdrop-blur-lg ${bgClass}`}
+      className={`fixed top-0 inset-x-0 z-50 transition-colors duration-300 ${blurClass} ${bgClass}`}
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
