@@ -119,7 +119,7 @@ export default function BloggInnlegg({ post, relatedPosts, locale }) {
 
       <main className="flex-grow pt-20">
         {/* Article Header */}
-        <article className="py-12">
+        <article className="pt-16 md:pt-24 pb-12">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               {/* Categories */}
