@@ -72,20 +72,9 @@ function FeaturedPostSection({ post, locale }) {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 md:mb-10">
-          <div>
-            <span className="block text-sm font-semibold uppercase tracking-wider text-blue-600 mb-2">
-              {locale === 'en' ? 'From the blog' : 'Fra bloggen'}
-            </span>
-            <h2 className="text-3xl font-bold text-gray-900">
-              {locale === 'en' ? 'Latest from Fortolker' : 'Siste fra Fortolker'}
-            </h2>
-          </div>
-          <Link href="/blogg" className="hidden sm:inline-flex items-center gap-2 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-900 font-medium py-2.5 px-5 rounded-md transition duration-300">
-            {locale === 'en' ? 'See all posts' : 'Se alle innlegg'}
-            <ArrowIcon />
-          </Link>
-        </div>
+        <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
+          {locale === 'en' ? 'Latest from the blog' : 'Siste fra bloggen'}
+        </h2>
 
         <Link
           href={`/blogg/${post.slug.current}`}
@@ -140,10 +129,12 @@ function FeaturedPostSection({ post, locale }) {
           </div>
         </Link>
 
-        <Link href="/blogg" className="sm:hidden mt-6 flex items-center justify-center gap-2 border border-gray-300 hover:bg-gray-50 text-gray-900 font-medium py-3 px-5 rounded-md transition duration-300">
-          {locale === 'en' ? 'See all posts' : 'Se alle innlegg'}
-          <ArrowIcon />
-        </Link>
+        <div className="mt-8 flex justify-center">
+          <Link href="/blogg" className="inline-flex items-center justify-center gap-2 w-full sm:w-auto border border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-900 font-medium py-3 px-6 rounded-md transition duration-300">
+            {locale === 'en' ? 'See all posts' : 'Se alle innlegg'}
+            <ArrowIcon />
+          </Link>
+        </div>
       </div>
     </section>
   );
