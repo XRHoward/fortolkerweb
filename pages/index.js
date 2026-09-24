@@ -6,6 +6,8 @@ import { urlFor } from '../lib/sanity';
 import { t } from '../lib/i18n';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { format } from 'date-fns';
+import { nb, enGB } from 'date-fns/locale';
 
 
 function ClientLogo({ c }) {
@@ -44,7 +46,110 @@ function ClientsSection({ clients }) {
   );
 }
 
-export default function Home({ globalSettings, homePage, locale }) {
+function ArrowIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 12h14" />
+      <path d="m13 6 6 6-6 6" />
+    </svg>
+  );
+}
+
+function FeaturedPostSection({ post, locale }) {
+  if (!post?.slug?.current) return null;
+
+  const title = t(post, 'title', locale);
+  const excerpt = t(post, 'excerpt', locale);
+  const dateLocale = locale === 'en' ? enGB : nb;
+  const date = post.date ? format(new Date(post.date), 'd. MMMM yyyy', { locale: dateLocale }) : null;
+  // Ca. 200 ord i minuttet, regnet ut fra antall tegn (≈ 6 tegn per ord inkl. mellomrom)
+  const readingMinutes = post.charCount ? Math.max(1, Math.round(post.charCount / 6 / 200)) : null;
+  const meta = [
+    date,
+    readingMinutes && (locale === 'en' ? `${readingMinutes} min read` : `${readingMinutes} min lesing`),
+  ].filter(Boolean).join(' · ');
+
+  return (
+    <section className="py-16">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 md:mb-10">
+          <div>
+            <span className="block text-sm font-semibold uppercase tracking-wider text-blue-600 mb-2">
+              {locale === 'en' ? 'From the blog' : 'Fra bloggen'}
+            </span>
+            <h2 className="text-3xl font-bold text-gray-900">
+              {locale === 'en' ? 'Latest from Fortolker' : 'Siste fra Fortolker'}
+            </h2>
+          </div>
+          <Link href="/blogg" className="hidden sm:inline-flex items-center gap-2 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-900 font-medium py-2.5 px-5 rounded-md transition duration-300">
+            {locale === 'en' ? 'See all posts' : 'Se alle innlegg'}
+            <ArrowIcon />
+          </Link>
+        </div>
+
+        <Link
+          href={`/blogg/${post.slug.current}`}
+          className="group grid grid-cols-1 md:grid-cols-12 bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl border border-gray-100 transition-shadow duration-300"
+        >
+          <div className="relative md:col-span-7 h-56 sm:h-72 md:h-auto md:min-h-[420px] bg-gray-100">
+            {post.mainImage?.asset?.url && (
+              <Image
+                src={urlFor(post.mainImage).width(1200).quality(80).url()}
+                alt={t(post.mainImage, 'alt', locale) || title}
+                fill
+                sizes="(min-width: 768px) 58vw, 100vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              />
+            )}
+          </div>
+          <div className="md:col-span-5 flex flex-col justify-center gap-4 md:gap-5 p-6 md:p-10 lg:p-12">
+            {post.categories?.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {post.categories.slice(0, 3).map((cat) => (
+                  <span key={cat._id} className="text-sm font-medium px-2.5 py-1 rounded-full bg-blue-50 text-blue-700">
+                    {t(cat, 'title', locale)}
+                  </span>
+                ))}
+              </div>
+            )}
+            <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-gray-900 group-hover:text-blue-700 transition-colors">
+              {title}
+            </h3>
+            {excerpt && (
+              <p className="text-base md:text-lg text-gray-600 leading-relaxed">{excerpt}</p>
+            )}
+            {(post.author?.name || meta) && (
+              <div className="flex items-center gap-3">
+                {post.author?.image?.asset?.url && (
+                  <img
+                    src={urlFor(post.author.image).width(80).height(80).url()}
+                    alt=""
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                )}
+                <div className="flex flex-col">
+                  {post.author?.name && <span className="text-sm font-semibold text-gray-900">{post.author.name}</span>}
+                  {meta && <span className="text-sm text-gray-500">{meta}</span>}
+                </div>
+              </div>
+            )}
+            <span className="inline-flex items-center gap-2 font-semibold text-blue-600 group-hover:text-blue-800">
+              {locale === 'en' ? 'Read the post' : 'Les innlegget'}
+              <ArrowIcon />
+            </span>
+          </div>
+        </Link>
+
+        <Link href="/blogg" className="sm:hidden mt-6 flex items-center justify-center gap-2 border border-gray-300 hover:bg-gray-50 text-gray-900 font-medium py-3 px-5 rounded-md transition duration-300">
+          {locale === 'en' ? 'See all posts' : 'Se alle innlegg'}
+          <ArrowIcon />
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+export default function Home({ globalSettings, homePage, featuredPost, locale }) {
   const heroHeading = t(homePage, 'heroHeading', locale) || 'Rådgivning for fremtidens utfordringer';
   const heroSubheading = t(homePage, 'heroSubheading', locale) || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.';
 
@@ -177,6 +282,9 @@ export default function Home({ globalSettings, homePage, locale }) {
           </section>
         )}
 
+        {/* Featured Blog Post */}
+        <FeaturedPostSection post={featuredPost} locale={locale} />
+
         {/* Clients Section */}
         <ClientsSection clients={homePage?.featuredClients} />
 
@@ -249,13 +357,31 @@ export async function getStaticProps({ locale }) {
       }
     }`;
 
+    // Fremhevet innlegg velges i Sanity; faller tilbake til siste innlegg
+    const postFields = `{
+      title, title_en,
+      slug,
+      excerpt, excerpt_en,
+      "date": coalesce(publishedAt, _createdAt),
+      "charCount": length(pt::text(body)),
+      mainImage { asset->{ _id, url }, hotspot, crop, alt, alt_en },
+      author->{ name, image { asset->{ _id, url } } },
+      categories[]->{ _id, title, title_en }
+    }`;
+    const featuredPostQuery = `coalesce(
+      *[_type == "homePage"][0].featuredPost->${postFields},
+      *[_type == "post" && defined(slug.current)] | order(coalesce(publishedAt, _createdAt) desc)[0]${postFields}
+    )`;
+
     const globalSettings = await client.fetch(globalSettingsQuery);
     const homePage = await client.fetch(homePageQuery);
+    const featuredPost = await client.fetch(featuredPostQuery);
 
     return {
       props: {
         globalSettings,
         homePage,
+        featuredPost: featuredPost || null,
         locale,
       },
       revalidate: 60,
@@ -266,6 +392,7 @@ export async function getStaticProps({ locale }) {
       props: {
         globalSettings: {},
         homePage: {},
+        featuredPost: null,
         locale,
       },
     };

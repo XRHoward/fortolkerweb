@@ -125,6 +125,14 @@ export default {
       group: 'other',
     },
     {
+      name: 'featuredPost',
+      title: 'Fremhevet blogginnlegg',
+      description: 'Vises under «Våre tjenester». La stå tomt for å vise siste innlegg automatisk.',
+      type: 'reference',
+      to: [{ type: 'post' }],
+      group: 'other',
+    },
+    {
       name: 'featuredClients',
       title: 'Fremhevede kunder',
       type: 'array',
