@@ -74,7 +74,7 @@ const content = {
           'få utlevert opplysningene dine (dataportabilitet)',
         ],
         after: [
-          'Send en e-post til hei@fortolker.no, så svarer vi innen 30 dager. Mener du at vi behandler personopplysninger i strid med regelverket, kan du klage til Datatilsynet (datatilsynet.no).',
+          'Send en e-post til hei@fortolker.no, så svarer vi innen 24 timer. Mener du at vi behandler personopplysninger i strid med regelverket, kan du klage til Datatilsynet (datatilsynet.no).',
         ],
       },
     ],
@@ -146,7 +146,7 @@ const content = {
           'receive your data in a portable format',
         ],
         after: [
-          'Send an email to hei@fortolker.no and we will respond within 30 days. If you believe we process personal data in breach of the rules, you can complain to the Norwegian Data Protection Authority (datatilsynet.no).',
+          'Send an email to hei@fortolker.no and we will respond within 24 hours. If you believe we process personal data in breach of the rules, you can complain to the Norwegian Data Protection Authority (datatilsynet.no).',
         ],
       },
     ],
