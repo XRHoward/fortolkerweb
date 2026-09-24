@@ -12,34 +12,31 @@ import { nb, enGB } from 'date-fns/locale';
 
 function ClientLogo({ c }) {
   const inner = c.logo?.asset?.url
-    ? <img src={c.logo.asset.url} alt={c.name} className="w-full h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" />
+    ? <img src={c.logo.asset.url} alt={c.name} className="w-full h-full object-contain grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
     : <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center text-gray-400 text-sm font-medium">{c.name}</div>;
 
-  const wrapper = "flex items-center justify-center w-full h-10";
+  const wrapper = "flex items-center justify-center w-full h-12";
 
   if (c.url) {
     return (
-      <a href={c.url} target="_blank" rel="noopener noreferrer" title={c.name} className={`${wrapper} opacity-60 hover:opacity-100 transition-opacity duration-300`}>
+      <a href={c.url} target="_blank" rel="noopener noreferrer" title={c.name} className={wrapper}>
         {inner}
       </a>
     );
   }
-  return <div className={`${wrapper} opacity-60`}>{inner}</div>;
+  return <div className={wrapper}>{inner}</div>;
 }
 
-function ClientsSection({ clients }) {
+function ClientsSection({ clients, locale }) {
   if (!clients || clients.length === 0) return null;
-  const list = clients;
   return (
-    <section className="pt-4 pb-16">
+    <section className="pt-16">
       <div className="container mx-auto px-4">
-        <div className="p-8 md:p-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">
-          Noen av våre kunder
+        <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
+          {locale === 'en' ? 'Some of the people we have worked with' : 'Noen av dem vi har jobbet med'}
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
-          {list.map((c) => <ClientLogo key={c._id} c={c} />)}
-        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 max-w-5xl mx-auto">
+          {clients.map((c) => <ClientLogo key={c._id} c={c} />)}
         </div>
       </div>
     </section>
@@ -140,7 +137,7 @@ function FeaturedPostSection({ post, locale }) {
   );
 }
 
-export default function Home({ globalSettings, homePage, featuredPost, locale }) {
+export default function Home({ globalSettings, homePage, featuredPost, clients, locale }) {
   const heroHeading = t(homePage, 'heroHeading', locale) || 'Rådgivning for fremtidens utfordringer';
   const heroSubheading = t(homePage, 'heroSubheading', locale) || 'Vi hjelper bedrifter med å navigere i skjæringspunktet mellom teknologi, innovasjon og bærekraft.';
 
@@ -273,11 +270,11 @@ export default function Home({ globalSettings, homePage, featuredPost, locale })
           </section>
         )}
 
+        {/* Clients Section */}
+        <ClientsSection clients={clients} locale={locale} />
+
         {/* Featured Blog Post */}
         <FeaturedPostSection post={featuredPost} locale={locale} />
-
-        {/* Clients Section */}
-        <ClientsSection clients={homePage?.featuredClients} />
 
         {/* Call to Action */}
         <section className="py-16">
@@ -367,12 +364,19 @@ export async function getStaticProps({ locale }) {
     const globalSettings = await client.fetch(globalSettingsQuery);
     const homePage = await client.fetch(homePageQuery);
     const featuredPost = await client.fetch(featuredPostQuery);
+    // Kunder valgt under «Fremhevede kunder» på Forsiden; ellers alle kunder
+    const clients = homePage?.featuredClients?.length
+      ? homePage.featuredClients
+      : await client.fetch(`*[_type == "client" && defined(logo.asset)] | order(coalesce(order, 999) asc, name asc){
+          _id, name, url, logo { asset->{ _id, url } }
+        }`);
 
     return {
       props: {
         globalSettings,
         homePage,
         featuredPost: featuredPost || null,
+        clients: clients || [],
         locale,
       },
       revalidate: 60,
@@ -384,6 +388,7 @@ export async function getStaticProps({ locale }) {
         globalSettings: {},
         homePage: {},
         featuredPost: null,
+        clients: [],
         locale,
       },
     };
