@@ -70,7 +70,7 @@ function FeaturedPostSection({ post, locale }) {
   ].filter(Boolean).join(' · ');
 
   return (
-    <section className="py-16">
+    <section className="pt-16">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
           {locale === 'en' ? 'Latest from the blog' : 'Siste fra bloggen'}
