@@ -11,16 +11,16 @@ import { format } from 'date-fns';
 import { nb, enGB } from 'date-fns/locale';
 
 
-function ClientLogo({ c }) {
+function ClientLogo({ c, duplicate }) {
   const inner = c.logo?.asset?.url
-    ? <img src={c.logo.asset.url} alt={c.name} className="w-full h-full object-contain grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+    ? <img src={c.logo.asset.url} alt={duplicate ? '' : c.name} draggable={false} className="w-full h-full object-contain grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
     : <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center text-gray-400 text-sm font-medium">{c.name}</div>;
 
   const wrapper = "flex items-center justify-center w-full h-12";
 
   if (c.url) {
     return (
-      <a href={c.url} target="_blank" rel="noopener noreferrer" title={c.name} className={wrapper}>
+      <a href={c.url} target="_blank" rel="noopener noreferrer" title={c.name} className={wrapper} draggable={false} tabIndex={duplicate ? -1 : undefined}>
         {inner}
       </a>
     );
@@ -36,36 +36,146 @@ function ChevronIcon({ direction }) {
   );
 }
 
+// Hvor fort kundelinjen ruller av seg selv (piksler per sekund)
+const CLIENTS_SCROLL_SPEED = 25;
+// Hvor lenge den står stille etter at brukeren har rørt den (ms)
+const CLIENTS_RESUME_DELAY = 2500;
+
 function ClientsSection({ clients, locale }) {
   const trackRef = useRef(null);
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(false);
+  const anim = useRef({ pos: 0, pausedUntil: 0, tween: null, drag: null, dragged: false, hover: false });
 
-  const updateArrows = () => {
-    const el = trackRef.current;
-    if (!el) return;
-    setCanPrev(el.scrollLeft > 4);
-    setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
-  };
+  // Listen gjentas slik at den kan rulle i sløyfe begge veier
+  const copies = clients?.length && clients.length < 6 ? 5 : 3;
 
   useEffect(() => {
-    updateArrows();
-    window.addEventListener('resize', updateArrows);
-    return () => window.removeEventListener('resize', updateArrows);
-  }, [clients]);
+    const el = trackRef.current;
+    if (!el) return;
+    const a = anim.current;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const setWidth = () => el.scrollWidth / copies;
+
+    // Hold posisjonen i den midterste kopien, så sløyfen blir sømløs
+    const normalize = () => {
+      const w = setWidth();
+      if (!w) return 0;
+      let shift = 0;
+      if (a.pos < w) shift = w;
+      else if (a.pos >= 2 * w) shift = -w;
+      if (shift) {
+        a.pos += shift;
+        if (a.tween) { a.tween.from += shift; a.tween.to += shift; }
+        if (a.drag) a.drag.pos += shift;
+      }
+      return shift;
+    };
+    const apply = () => { normalize(); el.scrollLeft = a.pos; };
+
+    a.pos = setWidth();
+    apply();
+
+    let last = performance.now();
+    let frame;
+    const loop = (now) => {
+      const dt = Math.min(now - last, 100) / 1000;
+      last = now;
+      if (a.tween) {
+        const p = Math.min(1, (now - a.tween.start) / 450);
+        const eased = 1 - Math.pow(1 - p, 3);
+        a.pos = a.tween.from + (a.tween.to - a.tween.from) * eased;
+        if (p === 1) a.tween = null;
+        apply();
+      } else if (!reducedMotion && !a.drag && !a.hover && now > a.pausedUntil) {
+        a.pos += CLIENTS_SCROLL_SPEED * dt;
+        apply();
+      }
+      frame = requestAnimationFrame(loop);
+    };
+    frame = requestAnimationFrame(loop);
+
+    // Touch, styreflate og musehjul scroller listen direkte
+    const onScroll = () => {
+      if (Math.abs(el.scrollLeft - a.pos) > 2) {
+        a.pos = el.scrollLeft;
+        a.pausedUntil = performance.now() + CLIENTS_RESUME_DELAY;
+        if (normalize()) el.scrollLeft = a.pos;
+      }
+    };
+    const pause = () => { a.pausedUntil = performance.now() + CLIENTS_RESUME_DELAY; };
+
+    // Dra med musen, som på en berøringsskjerm
+    const onPointerDown = (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      a.drag = { x: e.clientX, pos: a.pos };
+      a.dragged = false;
+      a.tween = null;
+    };
+    const onPointerMove = (e) => {
+      if (!a.drag) return;
+      const dx = e.clientX - a.drag.x;
+      if (Math.abs(dx) > 5) a.dragged = true;
+      if (a.dragged) {
+        a.pos = a.drag.pos - dx;
+        apply();
+      }
+    };
+    const onPointerUp = () => {
+      if (!a.drag) return;
+      a.drag = null;
+      pause();
+    };
+    // Et dra skal ikke åpne lenken til kunden
+    const onClickCapture = (e) => {
+      if (a.dragged) { e.preventDefault(); e.stopPropagation(); a.dragged = false; }
+    };
+    const onEnter = () => { a.hover = true; };
+    const onLeave = () => { a.hover = false; };
+
+    el.addEventListener('scroll', onScroll, { passive: true });
+    el.addEventListener('touchstart', pause, { passive: true });
+    el.addEventListener('wheel', pause, { passive: true });
+    el.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    el.addEventListener('click', onClickCapture, true);
+    el.addEventListener('mouseenter', onEnter);
+    el.addEventListener('mouseleave', onLeave);
+    el.addEventListener('focusin', onEnter);
+    el.addEventListener('focusout', onLeave);
+    return () => {
+      cancelAnimationFrame(frame);
+      el.removeEventListener('scroll', onScroll);
+      el.removeEventListener('touchstart', pause);
+      el.removeEventListener('wheel', pause);
+      el.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+      el.removeEventListener('click', onClickCapture, true);
+      el.removeEventListener('mouseenter', onEnter);
+      el.removeEventListener('mouseleave', onLeave);
+      el.removeEventListener('focusin', onEnter);
+      el.removeEventListener('focusout', onLeave);
+    };
+  }, [clients, copies]);
 
   // Blar én «side» (inntil 5 logoer) om gangen
   const scrollByPage = (direction) => {
     const el = trackRef.current;
-    if (el) el.scrollBy({ left: direction * el.clientWidth, behavior: 'smooth' });
+    if (!el) return;
+    const a = anim.current;
+    a.tween = { from: a.pos, to: a.pos + direction * el.clientWidth, start: performance.now() };
+    a.pausedUntil = performance.now() + CLIENTS_RESUME_DELAY;
   };
 
   if (!clients || clients.length === 0) return null;
 
-  const arrowClass = 'absolute top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 rounded-full border border-gray-300 bg-white text-gray-700 hover:border-gray-400 hover:text-gray-900 transition disabled:opacity-30 disabled:cursor-default';
+  const arrowClass = 'absolute top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 rounded-full border border-gray-300 bg-white text-gray-700 hover:border-gray-400 hover:text-gray-900 transition';
+  const items = Array.from({ length: copies }, (_, copy) =>
+    clients.map((c) => ({ c, copy, key: `${copy}-${c._id}` }))
+  ).flat();
 
   return (
-    <section className="pt-16">
+    <section className="pt-16 pb-8">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
           {locale === 'en' ? 'Some of the people we have worked with' : 'Noen av dem vi har jobbet med'}
@@ -74,7 +184,6 @@ function ClientsSection({ clients, locale }) {
           <button
             type="button"
             onClick={() => scrollByPage(-1)}
-            disabled={!canPrev}
             aria-label={locale === 'en' ? 'Previous clients' : 'Forrige kunder'}
             className={`${arrowClass} left-0`}
           >
@@ -82,19 +191,21 @@ function ClientsSection({ clients, locale }) {
           </button>
           <div
             ref={trackRef}
-            onScroll={updateArrows}
-            className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide"
+            className="flex overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing select-none overscroll-x-contain"
           >
-            {clients.map((c) => (
-              <div key={c._id} className="shrink-0 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 snap-start px-4 md:px-6">
-                <ClientLogo c={c} />
+            {items.map(({ c, copy, key }) => (
+              <div
+                key={key}
+                aria-hidden={copy === 1 ? undefined : true}
+                className="shrink-0 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 px-4 md:px-6"
+              >
+                <ClientLogo c={c} duplicate={copy !== 1} />
               </div>
             ))}
           </div>
           <button
             type="button"
             onClick={() => scrollByPage(1)}
-            disabled={!canNext}
             aria-label={locale === 'en' ? 'More clients' : 'Flere kunder'}
             className={`${arrowClass} right-0`}
           >
