@@ -175,7 +175,7 @@ function ClientsSection({ clients, locale }) {
   ).flat();
 
   return (
-    <section className="pt-16">
+    <section className="pt-16 pb-8">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
           {locale === 'en' ? 'Some of the people we have worked with' : 'Noen av dem vi har jobbet med'}
