@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 const strings = {
   no: {
-    tagline: 'Rådgiver innen teknologi, innovasjon og kommunikasjon',
+    tagline: 'Rådgiver og «doer» innen teknologi, innovasjon og kommunikasjon',
     linksHeading: 'Lenker',
     home: 'Hjem', about: 'Om oss', services: 'Tjenester', contact: 'Kontakt',
     servicesHeading: 'Tjenester',
@@ -13,7 +13,7 @@ const strings = {
     privacy: 'Personvern',
   },
   en: {
-    tagline: 'Consulting within technology, innovation and communication',
+    tagline: 'Advisor and “doer” within technology, innovation and communication',
     linksHeading: 'Links',
     home: 'Home', about: 'About us', services: 'Services', contact: 'Contact',
     servicesHeading: 'Services',
