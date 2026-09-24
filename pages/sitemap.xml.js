@@ -6,7 +6,7 @@ const staticPaths = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
   { path: '/tjenester', changefreq: 'monthly', priority: '0.9' },
   { path: '/om-oss', changefreq: 'monthly', priority: '0.8' },
-  { path: '/blogg', changefreq: 'weekly', priority: '0.8' },
+  { path: '/innsikt', changefreq: 'weekly', priority: '0.8' },
   { path: '/kontakt', changefreq: 'yearly', priority: '0.7' },
   { path: '/personvern', changefreq: 'yearly', priority: '0.3' },
 ];
@@ -52,7 +52,7 @@ export async function getServerSideProps({ res }) {
   const entries = [
     ...staticPaths,
     ...posts.map((post) => ({
-      path: `/blogg/${encodeURIComponent(post.slug)}`,
+      path: `/innsikt/${encodeURIComponent(post.slug)}`,
       lastmod: post._updatedAt ? post._updatedAt.split('T')[0] : undefined,
       changefreq: 'monthly',
       priority: '0.6',

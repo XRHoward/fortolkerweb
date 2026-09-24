@@ -76,7 +76,7 @@ const portableTextComponents = {
   },
 };
 
-export default function BloggInnlegg({ post, relatedPosts, locale }) {
+export default function InnsiktArtikkel({ post, relatedPosts, locale }) {
   const dateLocale = locale === 'en' ? enGB : nb;
 
   if (!post) {
@@ -86,10 +86,10 @@ export default function BloggInnlegg({ post, relatedPosts, locale }) {
         <main className="flex-grow pt-20 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              {locale === 'en' ? 'Post not found' : 'Innlegget ble ikke funnet'}
+              {locale === 'en' ? 'Article not found' : 'Artikkelen ble ikke funnet'}
             </h1>
-            <Link href="/blogg" className="text-blue-600 hover:text-blue-800">
-              {locale === 'en' ? 'Back to the blog' : 'Tilbake til bloggen'}
+            <Link href="/innsikt" className="text-blue-600 hover:text-blue-800">
+              {locale === 'en' ? 'Back to insights' : 'Tilbake til Innsikt'}
             </Link>
           </div>
         </main>
@@ -128,7 +128,7 @@ export default function BloggInnlegg({ post, relatedPosts, locale }) {
                   {post.categories.map((category) => (
                     <Link
                       key={category._id}
-                      href={`/blogg?kategori=${category.slug.current}`}
+                      href={`/innsikt?kategori=${category.slug.current}`}
                       className="text-sm font-medium px-3 py-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
                     >
                       {t(category, 'title', locale)}
@@ -226,7 +226,7 @@ export default function BloggInnlegg({ post, relatedPosts, locale }) {
                   return (
                     <article key={relatedPost._id} className="group">
                       <Link
-                        href={`/blogg/${relatedPost.slug.current}`}
+                        href={`/innsikt/${relatedPost.slug.current}`}
                         className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 block"
                       >
                         {relatedPost.mainImage && (
@@ -257,10 +257,10 @@ export default function BloggInnlegg({ post, relatedPosts, locale }) {
           </section>
         )}
 
-        {/* Back to Blog */}
+        {/* Back to Insights */}
         <div className="container mx-auto px-4 py-8">
           <Link
-            href="/blogg"
+            href="/innsikt"
             className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
           >
             <svg
@@ -276,7 +276,7 @@ export default function BloggInnlegg({ post, relatedPosts, locale }) {
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-            {locale === 'en' ? 'Back to the blog' : 'Tilbake til bloggen'}
+            {locale === 'en' ? 'Back to insights' : 'Tilbake til Innsikt'}
           </Link>
         </div>
       </main>

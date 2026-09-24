@@ -9,7 +9,7 @@ import Footer from '../../components/Footer';
 import { format } from 'date-fns';
 import { nb, enGB } from 'date-fns/locale';
 
-export default function BloggOversikt({ posts, categories, locale }) {
+export default function InnsiktOversikt({ posts, categories, locale }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const filteredPosts = selectedCategory
@@ -21,7 +21,7 @@ export default function BloggOversikt({ posts, categories, locale }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>{locale === 'en' ? 'Blog - Fortolker AS' : 'Blogg - Fortolker AS'}</title>
+        <title>{locale === 'en' ? 'Insights - Fortolker AS' : 'Innsikt - Fortolker AS'}</title>
         <meta name="description" content={locale === 'en' ? 'Read our latest articles on innovation, technology and communication' : 'Les våre siste artikler om innovasjon, teknologi og kommunikasjon'} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -34,10 +34,10 @@ export default function BloggOversikt({ posts, categories, locale }) {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                {locale === 'en' ? 'Blog' : 'Blogg'}
+                {locale === 'en' ? 'Insights' : 'Innsikt'}
               </h1>
               <p className="text-xl text-gray-600">
-                {locale === 'en' ? 'Insights and perspectives on innovation, technology and communication' : 'Innsikt og perspektiver på innovasjon, teknologi og kommunikasjon'}
+                {locale === 'en' ? 'Experience and perspectives on innovation, technology and communication' : 'Erfaringer og perspektiver på innovasjon, teknologi og kommunikasjon'}
               </p>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function BloggOversikt({ posts, categories, locale }) {
                   return (
                     <article key={post._id} className="group">
                       <Link
-                        href={`/blogg/${post.slug.current}`}
+                        href={`/innsikt/${post.slug.current}`}
                         className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col block"
                       >
                         {post.mainImage && (
@@ -149,7 +149,7 @@ export default function BloggOversikt({ posts, categories, locale }) {
             ) : (
               <div className="text-center py-12">
                 <p className="text-gray-600 text-lg">
-                  {locale === 'en' ? 'No blog posts found' : 'Ingen blogginnlegg funnet'}
+                  {locale === 'en' ? 'No articles found' : 'Ingen artikler funnet'}
                   {selectedCategory && (locale === 'en' ? ' in this category' : ' i denne kategorien')}.
                 </p>
               </div>

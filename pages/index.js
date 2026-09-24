@@ -73,11 +73,11 @@ function FeaturedPostSection({ post, locale }) {
     <section className="pt-16">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-          {locale === 'en' ? 'Latest from the blog' : 'Siste fra bloggen'}
+          {locale === 'en' ? 'Latest insights' : 'Siste innsikt'}
         </h2>
 
         <Link
-          href={`/blogg/${post.slug.current}`}
+          href={`/innsikt/${post.slug.current}`}
           className="group grid grid-cols-1 md:grid-cols-12 bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl border border-gray-100 transition-shadow duration-300"
         >
           <div className="relative md:col-span-7 h-56 sm:h-72 md:h-auto md:min-h-[420px] bg-gray-100">
@@ -123,15 +123,15 @@ function FeaturedPostSection({ post, locale }) {
               </div>
             )}
             <span className="inline-flex items-center gap-2 font-semibold text-blue-600 group-hover:text-blue-800">
-              {locale === 'en' ? 'Read the post' : 'Les innlegget'}
+              {locale === 'en' ? 'Read the article' : 'Les artikkelen'}
               <ArrowIcon />
             </span>
           </div>
         </Link>
 
         <div className="mt-8 flex justify-center">
-          <Link href="/blogg" className="inline-flex items-center justify-center gap-2 w-full sm:w-auto border border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-900 font-medium py-3 px-6 rounded-md transition duration-300">
-            {locale === 'en' ? 'See all posts' : 'Se alle innlegg'}
+          <Link href="/innsikt" className="inline-flex items-center justify-center gap-2 w-full sm:w-auto border border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-900 font-medium py-3 px-6 rounded-md transition duration-300">
+            {locale === 'en' ? 'See all articles' : 'Se alle artikler'}
             <ArrowIcon />
           </Link>
         </div>

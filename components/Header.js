@@ -31,14 +31,14 @@ const navLinks = {
     { href: '/', label: 'Hjem' },
     { href: '/om-oss', label: 'Om oss' },
     { href: '/tjenester', label: 'Tjenester' },
-    { href: '/blogg', label: 'Blogg' },
+    { href: '/innsikt', label: 'Innsikt' },
     { href: '/kontakt', label: 'Kontakt' },
   ],
   en: [
     { href: '/', label: 'Home' },
     { href: '/om-oss', label: 'About' },
     { href: '/tjenester', label: 'Services' },
-    { href: '/blogg', label: 'Blog' },
+    { href: '/innsikt', label: 'Insights' },
     { href: '/kontakt', label: 'Contact' },
   ],
 };
