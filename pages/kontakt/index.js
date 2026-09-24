@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useState } from 'react';
 import { client } from '../../lib/sanity';
 import Header from '../../components/Header';
@@ -15,6 +16,8 @@ const strings = {
     send: 'Send melding', sending: 'Sender...', success: 'Takk! Meldingen er sendt.', error: 'Noe gikk galt. Prøv igjen senere.',
     infoHeading: 'Kontaktinformasjon', phoneLabel: 'Telefon', emailLabel: 'E-post', linkedinLabel: 'LinkedIn', addressLabel: 'Adresse',
     followUs: 'Følg oss',
+    privacyNote: 'Vi bruker opplysningene kun til å svare på henvendelsen din. Les mer i',
+    privacyLink: 'personvernerklæringen',
   },
   en: {
     title: 'Contact - Fortolker AS',
@@ -26,6 +29,8 @@ const strings = {
     send: 'Send message', sending: 'Sending...', success: 'Thank you! Your message has been sent.', error: 'Something went wrong. Please try again later.',
     infoHeading: 'Contact information', phoneLabel: 'Phone', emailLabel: 'Email', linkedinLabel: 'LinkedIn', addressLabel: 'Address',
     followUs: 'Follow us',
+    privacyNote: 'We only use your details to respond to your enquiry. Read more in our',
+    privacyLink: 'privacy policy',
   },
 };
 
@@ -101,6 +106,10 @@ export default function Kontakt({ contactInfo, locale }) {
                     {status === 'sending' && <p className="text-gray-600 mt-2">{s.sending}</p>}
                     {status === 'success' && <p className="text-green-600 mt-2">{s.success}</p>}
                     {status === 'error' && <p className="text-red-600 mt-2">{s.error}</p>}
+                    <p className="text-sm text-gray-500 mt-3">
+                      {s.privacyNote}{' '}
+                      <Link href="/personvern" className="text-blue-600 hover:text-blue-800 underline underline-offset-2">{s.privacyLink}</Link>.
+                    </p>
                   </div>
                 </form>
               </div>

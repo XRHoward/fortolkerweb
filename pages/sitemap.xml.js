@@ -8,6 +8,7 @@ const staticPaths = [
   { path: '/om-oss', changefreq: 'monthly', priority: '0.8' },
   { path: '/blogg', changefreq: 'weekly', priority: '0.8' },
   { path: '/kontakt', changefreq: 'yearly', priority: '0.7' },
+  { path: '/personvern', changefreq: 'yearly', priority: '0.3' },
 ];
 
 function localizedUrl(path, locale) {

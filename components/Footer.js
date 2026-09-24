@@ -10,6 +10,7 @@ const strings = {
     service1: 'Teknologirådgivning', service2: 'Innovasjonsrådgivning', service3: 'Innleid ledelse',
     contactHeading: 'Kontakt',
     rights: 'Alle rettigheter forbeholdt.',
+    privacy: 'Personvern',
   },
   en: {
     tagline: 'Consulting within technology, innovation and communication',
@@ -19,6 +20,7 @@ const strings = {
     service1: 'Technology consulting', service2: 'Innovation consulting', service3: 'Interim management',
     contactHeading: 'Contact',
     rights: 'All rights reserved.',
+    privacy: 'Privacy',
   },
 };
 
@@ -95,7 +97,10 @@ export default function Footer({ settings }) {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col items-center gap-6 text-gray-400 sm:flex-row sm:justify-between">
-          <span>© {new Date().getFullYear()} Fortolker AS. {s.rights}</span>
+          <span>
+            © {new Date().getFullYear()} Fortolker AS. {s.rights}{' '}
+            <Link href="/personvern" className="underline underline-offset-2 hover:text-white">{s.privacy}</Link>
+          </span>
           <div className="flex items-center gap-6">
             <a
               href="https://parkhamar.no/"
