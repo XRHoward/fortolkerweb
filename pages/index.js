@@ -175,7 +175,7 @@ function ClientsSection({ clients, locale }) {
   ).flat();
 
   return (
-    <section className="pt-16 pb-8">
+    <section className="pt-16">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
           {locale === 'en' ? 'Some of the people we have worked with' : 'Noen av dem vi har jobbet med'}
@@ -241,7 +241,7 @@ function FeaturedPostSection({ post, locale }) {
   ].filter(Boolean).join(' · ');
 
   return (
-    <section className="pt-16">
+    <section className="pt-16 pb-8">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
           {locale === 'en' ? 'Latest insights' : 'Siste innsikt'}
@@ -444,11 +444,11 @@ export default function Home({ globalSettings, homePage, featuredPost, clients, 
           </section>
         )}
 
-        {/* Clients Section */}
-        <ClientsSection clients={clients} locale={locale} />
-
         {/* Featured Blog Post */}
         <FeaturedPostSection post={featuredPost} locale={locale} />
+
+        {/* Clients Section */}
+        <ClientsSection clients={clients} locale={locale} />
 
         {/* Call to Action */}
         <section className="py-16">
