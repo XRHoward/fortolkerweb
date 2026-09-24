@@ -118,23 +118,6 @@ export default function BloggInnlegg({ post, relatedPosts, locale }) {
       <Header />
 
       <main className="flex-grow pt-20">
-        {/* Breadcrumbs */}
-        <div className="bg-gray-50 py-4">
-          <div className="container mx-auto px-4">
-            <nav className="text-sm text-gray-600">
-              <Link href="/" className="hover:text-blue-600">
-                {locale === 'en' ? 'Home' : 'Hjem'}
-              </Link>
-              <span className="mx-2">/</span>
-              <Link href="/blogg" className="hover:text-blue-600">
-                {locale === 'en' ? 'Blog' : 'Blogg'}
-              </Link>
-              <span className="mx-2">/</span>
-              <span className="text-gray-900">{title}</span>
-            </nav>
-          </div>
-        </div>
-
         {/* Article Header */}
         <article className="py-12">
           <div className="container mx-auto px-4">
