@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /globalSettings
+
+Sitemap: https://www.fortolker.no/sitemap.xml
