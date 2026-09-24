@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { client } from '../lib/sanity';
 import { urlFor } from '../lib/sanity';
 import { t } from '../lib/i18n';
@@ -27,16 +28,78 @@ function ClientLogo({ c }) {
   return <div className={wrapper}>{inner}</div>;
 }
 
+function ChevronIcon({ direction }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d={direction === 'left' ? 'm15 6-6 6 6 6' : 'm9 6 6 6-6 6'} />
+    </svg>
+  );
+}
+
 function ClientsSection({ clients, locale }) {
+  const trackRef = useRef(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(false);
+
+  const updateArrows = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 4);
+    setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+
+  useEffect(() => {
+    updateArrows();
+    window.addEventListener('resize', updateArrows);
+    return () => window.removeEventListener('resize', updateArrows);
+  }, [clients]);
+
+  // Blar én «side» (inntil 5 logoer) om gangen
+  const scrollByPage = (direction) => {
+    const el = trackRef.current;
+    if (el) el.scrollBy({ left: direction * el.clientWidth, behavior: 'smooth' });
+  };
+
   if (!clients || clients.length === 0) return null;
+
+  const arrowClass = 'absolute top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 rounded-full border border-gray-300 bg-white text-gray-700 hover:border-gray-400 hover:text-gray-900 transition disabled:opacity-30 disabled:cursor-default';
+
   return (
     <section className="pt-16">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
           {locale === 'en' ? 'Some of the people we have worked with' : 'Noen av dem vi har jobbet med'}
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 max-w-5xl mx-auto">
-          {clients.map((c) => <ClientLogo key={c._id} c={c} />)}
+        <div className="relative px-12 md:px-14">
+          <button
+            type="button"
+            onClick={() => scrollByPage(-1)}
+            disabled={!canPrev}
+            aria-label={locale === 'en' ? 'Previous clients' : 'Forrige kunder'}
+            className={`${arrowClass} left-0`}
+          >
+            <ChevronIcon direction="left" />
+          </button>
+          <div
+            ref={trackRef}
+            onScroll={updateArrows}
+            className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide"
+          >
+            {clients.map((c) => (
+              <div key={c._id} className="shrink-0 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 snap-start px-4 md:px-6">
+                <ClientLogo c={c} />
+              </div>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => scrollByPage(1)}
+            disabled={!canNext}
+            aria-label={locale === 'en' ? 'More clients' : 'Flere kunder'}
+            className={`${arrowClass} right-0`}
+          >
+            <ChevronIcon direction="right" />
+          </button>
         </div>
       </div>
     </section>
