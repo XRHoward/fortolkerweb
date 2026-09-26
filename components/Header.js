@@ -83,7 +83,7 @@ export default function Header() {
           {/* Desktop-meny */}
           <nav className="hidden md:flex items-center gap-10 flex-1 justify-center">
             {links.map(({ href, label }) => (
-              <Link key={href} href={href} className="text-white/80 hover:text-white transition-colors duration-200">
+              <Link key={href} href={href} className="font-semibold text-white/80 hover:text-white transition-colors duration-200">
                 {label}
               </Link>
             ))}
@@ -114,7 +114,7 @@ export default function Header() {
         {menuOpen && (
           <nav className="md:hidden flex flex-col gap-4 pb-4">
             {links.map(({ href, label }) => (
-              <Link key={href} href={href} className="text-white/80 hover:text-white transition-colors duration-200" onClick={() => setMenuOpen(false)}>
+              <Link key={href} href={href} className="font-semibold text-white/80 hover:text-white transition-colors duration-200" onClick={() => setMenuOpen(false)}>
                 {label}
               </Link>
             ))}
