@@ -7,22 +7,40 @@ function LanguageSwitcher() {
   const router = useRouter();
   const { locale, pathname, asPath, query } = router;
 
-  const toggle = () => {
-    const next = locale === 'no' ? 'en' : 'no';
-    router.push({ pathname, query }, asPath, { locale: next });
+  const switchTo = (next) => {
+    if (next !== locale) router.push({ pathname, query }, asPath, { locale: next });
   };
 
+  const options = [
+    { code: 'no', label: 'NO', name: 'Norsk' },
+    { code: 'en', label: 'EN', name: 'English' },
+  ];
+
   return (
-    <button
-      onClick={toggle}
-      className="text-sm font-semibold text-white/90 hover:text-white border border-white/30 hover:border-white/60 rounded px-2 py-1 transition-colors duration-200"
-      aria-label="Switch language"
+    <div
+      role="group"
+      aria-label={locale === 'en' ? 'Language' : 'Språk'}
+      className="inline-flex items-center gap-0.5 p-[3px] rounded-full bg-slate-900/70 border border-white/20 backdrop-blur-sm text-[13px] font-semibold"
     >
-      {locale === 'no'
-        ? <><span className="fi fi-gb mr-1"></span>EN</>
-        : <><span className="fi fi-no mr-1"></span>NO</>
-      }
-    </button>
+      {options.map(({ code, label, name }) => {
+        const active = locale === code;
+        return (
+          <button
+            key={code}
+            type="button"
+            onClick={() => switchTo(code)}
+            aria-pressed={active}
+            aria-label={name}
+            lang={code === 'no' ? 'nb' : 'en'}
+            className={`px-3 py-1 rounded-full transition-colors duration-200 ${
+              active ? 'bg-white text-slate-900' : 'text-white/85 hover:text-white hover:bg-white/10'
+            }`}
+          >
+            {label}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
