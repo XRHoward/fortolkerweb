@@ -12,17 +12,17 @@ function LanguageSwitcher() {
   };
 
   const options = [
-    { code: 'no', label: 'NO', name: 'Norsk' },
-    { code: 'en', label: 'EN', name: 'English' },
+    { code: 'no', flag: 'fi-no', name: 'Norsk' },
+    { code: 'en', flag: 'fi-gb', name: 'English' },
   ];
 
   return (
     <div
       role="group"
       aria-label={locale === 'en' ? 'Language' : 'Språk'}
-      className="inline-flex items-center gap-0.5 p-[3px] rounded-full bg-slate-900/70 border border-white/20 backdrop-blur-sm text-[13px] font-semibold"
+      className="inline-flex items-center gap-0.5 p-[2px] rounded-full bg-slate-900/70 border border-white/20 backdrop-blur-sm text-[13px] leading-none"
     >
-      {options.map(({ code, label, name }) => {
+      {options.map(({ code, flag, name }) => {
         const active = locale === code;
         return (
           <button
@@ -32,11 +32,11 @@ function LanguageSwitcher() {
             aria-pressed={active}
             aria-label={name}
             lang={code === 'no' ? 'nb' : 'en'}
-            className={`px-3 py-1 rounded-full transition-colors duration-200 ${
-              active ? 'bg-white text-slate-900' : 'text-white/85 hover:text-white hover:bg-white/10'
+            className={`flex items-center px-2 py-1 rounded-full transition duration-200 ${
+              active ? 'bg-white' : 'opacity-60 hover:opacity-100 hover:bg-white/10'
             }`}
           >
-            {label}
+            <span className={`fi ${flag} rounded-[2px]`} aria-hidden="true"></span>
           </button>
         );
       })}
