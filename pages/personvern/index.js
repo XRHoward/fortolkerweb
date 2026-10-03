@@ -12,7 +12,7 @@ const content = {
     meta: 'Slik behandler Fortolker AS personopplysninger på fortolker.no.',
     heading: 'Personvernerklæring',
     sub: 'Slik behandler vi personopplysninger når du besøker fortolker.no eller tar kontakt med oss.',
-    updated: 'Sist oppdatert 24. september 2026',
+    updated: 'Sist oppdatert 3. oktober 2026',
     sections: [
       {
         heading: 'Behandlingsansvarlig',
@@ -26,6 +26,7 @@ const content = {
         list: [
           'Kontaktskjema og e-post: navn, e-postadresse, telefonnummer (valgfritt) og innholdet i meldingen du sender oss.',
           'Tekniske opplysninger: når du besøker nettsiden, registrerer serverne som leverer siden IP-adresse, nettlesertype og hvilke sider som ble hentet. Dette er nødvendig for å levere siden og beskytte den mot misbruk.',
+          'Annonsemåling (bare hvis du samtykker): informasjonskapsler fra Google som registrerer om du har kommet til nettsiden via en av annonsene våre, og hva du gjør på siden etterpå, for eksempel om du tar kontakt.',
         ],
       },
       {
@@ -33,6 +34,7 @@ const content = {
         body: [
           'Vi bruker opplysningene fra kontaktskjemaet og e-post kun til å svare på henvendelsen din og eventuelt følge opp et oppdrag. Grunnlaget er vår berettigede interesse i å besvare henvendelser (personvernforordningen art. 6 nr. 1 bokstav f), eller at behandlingen er nødvendig for å inngå en avtale med deg (art. 6 nr. 1 bokstav b).',
           'Tekniske opplysninger behandles på grunnlag av vår berettigede interesse i å drive en sikker og stabil nettside (art. 6 nr. 1 bokstav f).',
+          'Annonsemåling bruker vi for å se hvilke annonser som fungerer. Grunnlaget er ditt samtykke (art. 6 nr. 1 bokstav a og ekomloven § 3-15), som du når som helst kan trekke tilbake.',
         ],
       },
       {
@@ -40,6 +42,7 @@ const content = {
         body: [
           'Henvendelser lagres i inntil 24 måneder og slettes deretter, med mindre de inngår i et kundeforhold eller vi er pålagt å oppbevare dem lenger, for eksempel etter bokføringsloven.',
           'Tekniske logger lagres kortvarig av leverandøren vår og slettes automatisk.',
+          'Informasjonskapsler for annonsemåling lagres i inntil 90 dager i nettleseren din.',
         ],
       },
       {
@@ -50,6 +53,7 @@ const content = {
         list: [
           'Vercel Inc. – drift av nettsiden (hosting).',
           'Google (Gmail) – utsending av meldinger fra kontaktskjemaet.',
+          'Google (Google Ads) – annonsemåling, bare hvis du samtykker.',
           'Domeneshop AS – e-post.',
           'Sanity – innholdsstyring og levering av bilder på nettsiden.',
         ],
@@ -60,7 +64,9 @@ const content = {
       {
         heading: 'Informasjonskapsler (cookies)',
         body: [
-          'Fortolker.no bruker ikke informasjonskapsler, og vi bruker ikke analyse- eller sporingsverktøy. Derfor ber vi deg heller ikke om samtykke til cookies.',
+          'Fortolker.no bruker bare informasjonskapsler hvis du samtykker til det. Da bruker vi Google Ads sin tag (gtag.js) til å måle effekten av annonsene våre. Den setter informasjonskapsler som _gcl_au, som lagres i inntil 90 dager.',
+          'Avslår du, lastes ikke Google-taggen, og ingen informasjonskapsler settes. Valget ditt lagres lokalt i nettleseren, slik at vi ikke spør på nytt hver gang.',
+          'Du kan når som helst endre eller trekke tilbake samtykket via lenken «Informasjonskapsler» nederst på siden.',
         ],
       },
       {
@@ -84,7 +90,7 @@ const content = {
     meta: 'How Fortolker AS processes personal data on fortolker.no.',
     heading: 'Privacy policy',
     sub: 'How we process personal data when you visit fortolker.no or get in touch with us.',
-    updated: 'Last updated 24 September 2026',
+    updated: 'Last updated 3 October 2026',
     sections: [
       {
         heading: 'Data controller',
@@ -98,6 +104,7 @@ const content = {
         list: [
           'Contact form and email: name, email address, phone number (optional) and the content of your message.',
           'Technical data: when you visit the website, the servers delivering it record your IP address, browser type and which pages were requested. This is necessary to deliver the site and protect it against abuse.',
+          'Ad measurement (only if you consent): cookies from Google that record whether you arrived at the website via one of our ads, and what you do on the site afterwards, for example whether you get in touch.',
         ],
       },
       {
@@ -105,6 +112,7 @@ const content = {
         body: [
           'We only use data from the contact form and email to respond to your enquiry and, where relevant, follow up on an assignment. The legal basis is our legitimate interest in responding to enquiries (GDPR Art. 6(1)(f)), or that processing is necessary to enter into a contract with you (Art. 6(1)(b)).',
           'Technical data is processed based on our legitimate interest in running a secure and stable website (Art. 6(1)(f)).',
+          'We use ad measurement to see which ads work. The legal basis is your consent (Art. 6(1)(a) and section 3-15 of the Norwegian Electronic Communications Act), which you can withdraw at any time.',
         ],
       },
       {
@@ -112,6 +120,7 @@ const content = {
         body: [
           'Enquiries are kept for up to 24 months and then deleted, unless they form part of a client relationship or we are required to keep them longer, for example under accounting law.',
           'Technical logs are kept briefly by our provider and deleted automatically.',
+          'Ad measurement cookies are stored in your browser for up to 90 days.',
         ],
       },
       {
@@ -122,6 +131,7 @@ const content = {
         list: [
           'Vercel Inc. – website hosting.',
           'Google (Gmail) – delivery of messages from the contact form.',
+          'Google (Google Ads) – ad measurement, only if you consent.',
           'Domeneshop AS – email.',
           'Sanity – content management and delivery of images on the website.',
         ],
@@ -132,7 +142,9 @@ const content = {
       {
         heading: 'Cookies',
         body: [
-          'Fortolker.no does not use cookies, and we do not use any analytics or tracking tools. That is why we do not ask for cookie consent.',
+          'Fortolker.no only uses cookies if you consent. We then use the Google Ads tag (gtag.js) to measure the effect of our ads. It sets cookies such as _gcl_au, which are stored for up to 90 days.',
+          'If you decline, the Google tag is not loaded and no cookies are set. Your choice is stored locally in your browser, so we do not ask again every time.',
+          'You can change or withdraw your consent at any time via the “Cookies” link at the bottom of the page.',
         ],
       },
       {

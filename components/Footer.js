@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { OPEN_COOKIE_SETTINGS } from './CookieConsent';
 
 const strings = {
   no: {
@@ -11,6 +12,7 @@ const strings = {
     contactHeading: 'Kontakt',
     rights: 'Alle rettigheter forbeholdt.',
     privacy: 'Personvern',
+    cookies: 'Informasjonskapsler',
   },
   en: {
     tagline: 'Advisor and “doer” within technology, innovation and communication',
@@ -21,6 +23,7 @@ const strings = {
     contactHeading: 'Contact',
     rights: 'All rights reserved.',
     privacy: 'Privacy',
+    cookies: 'Cookies',
   },
 };
 
@@ -100,6 +103,14 @@ export default function Footer({ settings }) {
           <span>
             © {new Date().getFullYear()} Fortolker AS. {s.rights}{' '}
             <Link href="/personvern" className="underline underline-offset-2 hover:text-white">{s.privacy}</Link>
+            {' · '}
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event(OPEN_COOKIE_SETTINGS))}
+              className="underline underline-offset-2 hover:text-white"
+            >
+              {s.cookies}
+            </button>
           </span>
           <div className="flex items-center gap-6">
             <a
