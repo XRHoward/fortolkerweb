@@ -9,7 +9,7 @@ export default function OmOss({ aboutPage, locale, globalSettings }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>{locale === 'en' ? 'About us - Fortolker AS' : 'Om oss - Fortolker AS'}</title>
+        <title>{locale === 'en' ? 'Fortolker AS | About us' : 'Fortolker AS | Om oss'}</title>
         <meta name="description" content={locale === 'en' ? 'Learn more about Fortolker AS.' : 'Lær mer om Fortolker AS, vår historie, våre verdier og vårt team.'} />
         <link rel="icon" href="/favicon.ico" />
       </Head>

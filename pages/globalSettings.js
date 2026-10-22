@@ -6,7 +6,7 @@ export default function GlobalSettingsPage({ globalSettings }) {
   return (
     <>
       <Head>
-        <title>{globalSettings?.siteName || 'Globale innstillinger'} - Fortolker AS</title>
+        <title>{`Fortolker AS | ${globalSettings?.siteName || 'Globale innstillinger'}`}</title>
       </Head>
 
       <main className="flex-grow py-16">

@@ -328,7 +328,7 @@ export default function Home({ globalSettings, homePage, featuredPost, clients, 
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>Fortolker AS - Rådgivning innen innovasjon, teknologi og kommunikasjon</title>
+        <title>Fortolker AS | Rådgivning innen innovasjon, teknologi og kommunikasjon</title>
         <meta name="description" content="Fortolker tilbyr rådgivning innen innovasjon, teknologi og kommunikasjon for å hjelpe din bedrift med å møte fremtidens utfordringer." />
         <link rel="icon" href="/favicon.ico" />
       </Head>

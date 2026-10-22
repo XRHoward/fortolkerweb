@@ -10,7 +10,7 @@ export default function Tjenester({ services, locale, globalSettings }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-         <title>Tjenester - Fortolker AS</title>
+         <title>{locale === 'en' ? 'Fortolker AS | Services' : 'Fortolker AS | Tjenester'}</title>
         <meta name="description" content="Utforsk våre rådgivningstjenester innen teknologi, innovasjon og kommunikasjon." />
         <link rel="icon" href="/favicon.ico" />
       </Head>

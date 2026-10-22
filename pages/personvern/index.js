@@ -8,7 +8,7 @@ import Footer from '../../components/Footer';
 // bytter SMTP-tjeneste (se SMTP_HOST i Vercel; per nå Gmail).
 const content = {
   no: {
-    title: 'Personvernerklæring - Fortolker AS',
+    title: 'Fortolker AS | Personvernerklæring',
     meta: 'Slik behandler Fortolker AS personopplysninger på fortolker.no.',
     heading: 'Personvernerklæring',
     sub: 'Slik behandler vi personopplysninger når du besøker fortolker.no eller tar kontakt med oss.',
@@ -86,7 +86,7 @@ const content = {
     ],
   },
   en: {
-    title: 'Privacy policy - Fortolker AS',
+    title: 'Fortolker AS | Privacy policy',
     meta: 'How Fortolker AS processes personal data on fortolker.no.',
     heading: 'Privacy policy',
     sub: 'How we process personal data when you visit fortolker.no or get in touch with us.',

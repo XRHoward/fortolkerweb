@@ -21,7 +21,7 @@ export default function InnsiktOversikt({ posts, categories, locale }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>{locale === 'en' ? 'Insights - Fortolker AS' : 'Innsikt - Fortolker AS'}</title>
+        <title>{locale === 'en' ? 'Fortolker AS | Insights' : 'Fortolker AS | Innsikt'}</title>
         <meta name="description" content={locale === 'en' ? 'Read our latest articles on innovation, technology and communication' : 'Les våre siste artikler om innovasjon, teknologi og kommunikasjon'} />
         <link rel="icon" href="/favicon.ico" />
       </Head>

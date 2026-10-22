@@ -7,7 +7,7 @@ import Footer from '../../components/Footer';
 
 const strings = {
   no: {
-    title: 'Kontakt - Fortolker AS',
+    title: 'Fortolker AS | Kontakt',
     meta: 'Kontakt Fortolker AS for rådgivning innen innovasjon, teknologi og kommunikasjon.',
     heading: 'Kontakt oss',
     sub: 'Vi er her for å hjelpe deg. Ta kontakt for en uforpliktende samtale eller kaffeprat:',
@@ -20,7 +20,7 @@ const strings = {
     privacyLink: 'personvernerklæringen',
   },
   en: {
-    title: 'Contact - Fortolker AS',
+    title: 'Fortolker AS | Contact',
     meta: 'Contact Fortolker AS for consulting within innovation, technology and communication.',
     heading: 'Contact us',
     sub: 'We are here to help. Get in touch for a no-obligation conversation or coffee chat:',

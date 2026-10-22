@@ -107,7 +107,7 @@ export default function InnsiktArtikkel({ post, relatedPosts, locale }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>{seo?.metaTitle || title} - Fortolker AS</title>
+        <title>{`Fortolker AS | ${(seo?.metaTitle || title || '').replace(/\s*[|\-–]\s*Fortolker( AS)?\s*$/i, '')}`}</title>
         <meta
           name="description"
           content={seo?.metaDescription || excerpt || ''}
