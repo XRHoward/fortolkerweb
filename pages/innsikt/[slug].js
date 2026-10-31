@@ -103,6 +103,11 @@ export default function InnsiktArtikkel({ post, relatedPosts, locale }) {
   const body = t(post, 'body', locale);
   const seo = t(post, 'seo', locale);
   const imageAlt = t(post.mainImage, 'alt', locale) || title;
+  const dateFormat = locale === 'en' ? 'MMMM d, yyyy' : 'd. MMMM yyyy';
+  const showUpdated =
+    post._updatedAt &&
+    (!post.publishedAt ||
+      new Date(post._updatedAt) - new Date(post.publishedAt) > 24 * 60 * 60 * 1000);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -143,7 +148,7 @@ export default function InnsiktArtikkel({ post, relatedPosts, locale }) {
               </h1>
 
               {/* Meta Info */}
-              <div className="flex items-center text-gray-600 mb-8 pb-8 border-b">
+              <div className="flex flex-wrap items-center gap-y-3 text-gray-600 mb-8 pb-8 border-b">
                 {post.author && (
                   <div className="flex items-center mr-6">
                     {post.author.image && (
@@ -155,12 +160,23 @@ export default function InnsiktArtikkel({ post, relatedPosts, locale }) {
                     )}
                     <div>
                       <p className="font-medium text-gray-900">{post.author.name}</p>
-                      {post.publishedAt && (
-                        <p className="text-sm">
-                          {format(new Date(post.publishedAt), locale === 'en' ? 'MMMM d, yyyy' : 'd. MMMM yyyy', { locale: dateLocale })}
-                        </p>
-                      )}
                     </div>
+                  </div>
+                )}
+                {(post.publishedAt || showUpdated) && (
+                  <div className="text-sm">
+                    {post.publishedAt && (
+                      <p>
+                        {locale === 'en' ? 'Published ' : 'Publisert '}
+                        {format(new Date(post.publishedAt), dateFormat, { locale: dateLocale })}
+                      </p>
+                    )}
+                    {showUpdated && (
+                      <p>
+                        {locale === 'en' ? 'Updated ' : 'Oppdatert '}
+                        {format(new Date(post._updatedAt), dateFormat, { locale: dateLocale })}
+                      </p>
+                    )}
                   </div>
                 )}
               </div>
@@ -304,6 +320,7 @@ export async function getStaticProps({ params, locale }) {
   try {
     const postQuery = `*[_type == "post" && slug.current == $slug][0]{
       _id,
+      _updatedAt,
       title, title_en,
       slug,
       publishedAt,
