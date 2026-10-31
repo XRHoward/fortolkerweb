@@ -52,10 +52,10 @@ const portableTextComponents = {
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="list-disc list-inside mb-4 space-y-2 text-gray-700">{children}</ul>
+      <ul className="list-disc list-outside pl-14 mb-4 space-y-2 text-gray-700">{children}</ul>
     ),
     number: ({ children }) => (
-      <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-700">{children}</ol>
+      <ol className="list-decimal list-outside pl-14 mb-4 space-y-2 text-gray-700">{children}</ol>
     ),
   },
   marks: {
